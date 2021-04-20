@@ -3,6 +3,7 @@ import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import Companies from "./Companies/Companies";
+import Users from "./users/Users";
 
 const images = [
   {
@@ -101,41 +102,11 @@ const ButtonBases = () => {
 
   return (
     <div className={classes.root}>
+      {/* button companies list */}
       <Companies />
 
-      <button>Pietro 2</button>
-      {/* BUTTON1 MAURIZIO */}
-      {/* BUTTON2 PIETRO */}
-      {images.map((image) => (
-        <ButtonBase
-          focusRipple
-          key={image.title}
-          className={classes.image}
-          focusVisibleClassName={classes.focusVisible}
-          style={{
-            width: image.width,
-          }}
-        >
-          <span
-            className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${image.url})`,
-            }}
-          />
-          <span className={classes.imageBackdrop} />
-          <span className={classes.imageButton}>
-            <Typography
-              component="span"
-              variant="subtitle1"
-              color="inherit"
-              className={classes.imageTitle}
-            >
-              {image.title}
-              <span className={classes.imageMarked} />
-            </Typography>
-          </span>
-        </ButtonBase>
-      ))}
+      {/* button users list */}
+      <Users />
     </div>
   );
 };
