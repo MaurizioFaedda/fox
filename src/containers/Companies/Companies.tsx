@@ -8,17 +8,11 @@ const Companies = (props: IProps) => {
 
   const clickBtn = () => {
     console.log("Click", "Maurizio 1");
-    let _listCompanies = listCompanies;
-    _listCompanies.push({
-      Id: 1,
-      Name: "compagnia 1",
-      Revenue: 1000,
-      ActivatedBy: new Date(),
-    });
+
     console.log("_listCompanies", "_listCompanies");
     //setList (_listCompanies)
   };
-  return <CompanyBtn title="Maurizio 1" goPageCompany={clickBtn} />;
+  return <CompanyBtn title="Companies" goPageCompany={clickBtn} />;
 };
 
 export default Companies;
