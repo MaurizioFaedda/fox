@@ -2,6 +2,7 @@ import React from "react";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
+import Companies from "./Companies/Companies";
 
 const images = [
   {
@@ -95,11 +96,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ButtonBases() {
+const ButtonBases = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      <Companies />
+
+      <button>Pietro 2</button>
+      {/* BUTTON1 MAURIZIO */}
+      {/* BUTTON2 PIETRO */}
       {images.map((image) => (
         <ButtonBase
           focusRipple
@@ -132,4 +138,5 @@ export default function ButtonBases() {
       ))}
     </div>
   );
-}
+};
+export default ButtonBases;

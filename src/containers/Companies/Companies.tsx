@@ -1,13 +1,12 @@
 import React from "react";
+import CompanyBtn from "../../components/companies/CompanyBtn";
 
-function Companies() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Companies</h2>
-      </header>
-    </div>
-  );
-}
+type IProps = {};
+const Companies = (props: IProps) => {
+  const clickBtn = () => {
+    console.log("Click", "Maurizio 1");
+  };
+  return <CompanyBtn title="Maurizio 1" goPageCompany={clickBtn} />;
+};
 
 export default Companies;
