@@ -1,4 +1,4 @@
-export type Companies = {
+export type ICompanies = {
     Id: number,
     Name: string,
     ActivatedBy: Date,
