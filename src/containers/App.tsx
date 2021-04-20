@@ -2,6 +2,7 @@ import React from "react";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
+import ComplexButtons from "./actionButtons/ComplexButtons";
 
 function App() {
   return (
@@ -10,10 +11,10 @@ function App() {
         <h2>Gestione Aziendale</h2>
 
         {/* button 1 - show companies */}
-        {/* <Button /> */}
+        <ComplexButtons />
 
         {/* button 2 - show users */}
-        {/* <Button /> */}
+        {/* <ComButton /> */}
       </header>
     </div>
   );
