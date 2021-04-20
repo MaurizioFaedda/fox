@@ -1,23 +1,33 @@
-import React from "react";
-import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
 import ComplexButtons from "./containers/ComplexButtons";
+import CompaniesList from "./containers/Companies/CompaniesList";
 
-function App() {
+const App = () => {
+  const [showTable, setShowTable] = useState<Boolean>(true);
+
+  const handleToggle = () => {
+    if (showTable) {
+      setShowTable(false);
+    } else {
+      setShowTable(true);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h2>Gestione Aziendale</h2>
 
-        {/* button 1 - show companies */}
-        <ComplexButtons />
+        <ComplexButtons handleToggle={handleToggle} />
 
-        {/* button 2 - show users */}
         {/* <ComButton /> */}
       </header>
+      {/* I haven't put the condition here because 
+      if not at every click it makes the call 
+      so I pass the boolean value*/}
+      <CompaniesList show={showTable} />
     </div>
   );
-}
+};
 
 export default App;

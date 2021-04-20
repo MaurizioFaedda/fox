@@ -3,33 +3,25 @@ import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 
-const images = [
-  {
-    url:
-      "https://d2tyltutevw8th.cloudfront.net/media/image/largestcompanies-1200-1606765438.jpg",
-    width: "40%",
-  },
-];
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     btnContainer: {
       display: "flex",
       flexWrap: "wrap",
       minWidth: 300,
-      width: "100%",
+      width: "50%",
     },
     image: {
       position: "relative",
       height: 200,
       [theme.breakpoints.down("xs")]: {
-        width: "100% !important", // Overrides inline-style
+        width: "100% !important",
         height: 100,
       },
       "&:hover, &$focusVisible": {
         zIndex: 1,
         "& $imageBackdrop": {
-          opacity: 0.15,
+          opacity: 0.3,
         },
         "& $imageMarked": {
           opacity: 0,
@@ -90,12 +82,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   title: string;
-  goPageCompany: () => void;
-  //   onGoVa
+  handleToggle: () => void;
 };
 const CompanyBtn = (props: IProps) => {
-  const { title, goPageCompany } = props;
+  const { title, handleToggle } = props;
   const c = useStyles();
+  const images = [
+    {
+      url:
+        "https://d2tyltutevw8th.cloudfront.net/media/image/largestcompanies-1200-1606765438.jpg",
+      width: "40%",
+    },
+  ];
 
   return (
     <div className={c.btnContainer}>
@@ -103,7 +101,7 @@ const CompanyBtn = (props: IProps) => {
         <ButtonBase
           focusRipple
           key={title}
-          onClick={goPageCompany}
+          onClick={handleToggle}
           className={c.image}
           focusVisibleClassName={c.focusVisible}
           style={{

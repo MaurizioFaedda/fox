@@ -1,18 +1,13 @@
 import React from "react";
 import CompanyBtn from "../../components/companies/CompanyBtn";
-import { ICompanies } from "./type";
 
-type IProps = {};
+type IProps = {
+  handleToggle: () => void;
+};
 const Companies = (props: IProps) => {
-  const [listCompanies, setListCompanies] = React.useState<ICompanies[]>([]);
+  const { handleToggle } = props;
 
-  const clickBtn = () => {
-    console.log("Click", "Maurizio 1");
-
-    console.log("_listCompanies", "_listCompanies");
-    //setList (_listCompanies)
-  };
-  return <CompanyBtn title="Companies" goPageCompany={clickBtn} />;
+  return <CompanyBtn handleToggle={handleToggle} title="Companies" />;
 };
 
 export default Companies;
