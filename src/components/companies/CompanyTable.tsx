@@ -40,41 +40,52 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  boxBtn: {
+    float: "right",
+  },
 });
 
 type IProps = {
   arr: any;
+  selected?: number;
+  handleFocusOnClick(id: number): void;
 };
 
 const CompanyTable = (props: IProps) => {
-  const { arr } = props;
-  const classes = useStyles();
+  const { arr, selected, handleFocusOnClick } = props;
+  const c = useStyles();
 
   return (
     <>
-      <CompanyActionBtn
-        disabled={false}
-        typeIcon="Add"
-        onClickEvent={() => {
-          console.log("Add");
-        }}
-      />
-      <CompanyActionBtn
-        disabled={true}
-        typeIcon="Edit"
-        onClickEvent={() => {
-          console.log("Edit");
-        }}
-      />
-      <CompanyActionBtn
-        disabled={true}
-        typeIcon="Delete"
-        onClickEvent={() => {
-          console.log("Delete");
-        }}
-      />
+      <div className={c.boxBtn}>
+        <CompanyActionBtn
+          selected={selected}
+          disabled={false}
+          typeIcon="Add"
+          onClickEvent={() => {
+            console.log("Add");
+          }}
+        />
+        <CompanyActionBtn
+          selected={selected}
+          disabled={true}
+          typeIcon="Edit"
+          onClickEvent={() => {
+            console.log("Edit", selected);
+          }}
+        />
+        <CompanyActionBtn
+          selected={selected}
+          disabled={true}
+          typeIcon="Delete"
+          onClickEvent={() => {
+            console.log("Delete", selected);
+          }}
+        />
+      </div>
+
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table className={c.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
@@ -83,8 +94,13 @@ const CompanyTable = (props: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {arr.map((item: any) => (
-              <StyledTableRow key={item.Id}>
+            {arr.map((item: any, index: number) => (
+              <StyledTableRow
+                key={index + 1}
+                onClick={() => {
+                  handleFocusOnClick(index + 1);
+                }}
+              >
                 <StyledTableCell component="th" scope="row">
                   {item.Name}
                 </StyledTableCell>
