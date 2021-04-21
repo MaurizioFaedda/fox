@@ -53,21 +53,21 @@ const CompanyTable = (props: IProps) => {
   return (
     <>
       <CompanyActionBtn
-        isActived={false}
+        disabled={false}
         typeIcon="Add"
         onClickEvent={() => {
           console.log("Add");
         }}
       />
       <CompanyActionBtn
-        isActived={true}
+        disabled={true}
         typeIcon="Edit"
         onClickEvent={() => {
           console.log("Edit");
         }}
       />
       <CompanyActionBtn
-        isActived={true}
+        disabled={true}
         typeIcon="Delete"
         onClickEvent={() => {
           console.log("Delete");

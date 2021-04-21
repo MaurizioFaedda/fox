@@ -6,12 +6,11 @@ import EditIcon from "@material-ui/icons/Edit";
 
 type IProps = {
   typeIcon: any;
-  isActived: boolean;
+  disabled: boolean;
   onClickEvent: Function;
-  buttonType?: string;
 };
 const CompanyActionBtn = (props: IProps) => {
-  const { typeIcon, isActived, buttonType, onClickEvent } = props;
+  const { typeIcon, disabled, onClickEvent } = props;
   const [title, setTitle] = useState<string>("");
   useEffect(() => {
     switch (typeIcon) {
@@ -31,7 +30,7 @@ const CompanyActionBtn = (props: IProps) => {
     }
   }, []);
   return (
-    <button disabled={isActived} onClick={() => onClickEvent}>
+    <button disabled={disabled} onClick={() => onClickEvent}>
       {title}
     </button>
     // <>

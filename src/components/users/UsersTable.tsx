@@ -52,9 +52,27 @@ const UsersTable = (props: IProps) => {
 
   return (
     <>
-      <UsersActionBtn typeIcon="Add" />
-      <UsersActionBtn typeIcon="Edit" />
-      <UsersActionBtn typeIcon="Delete" />
+      <UsersActionBtn
+        typeIcon="Add"
+        disabled={false}
+        onClickEvent={() => {
+          console.log("Add");
+        }}
+      />
+      <UsersActionBtn
+        typeIcon="Edit"
+        disabled={true}
+        onClickEvent={() => {
+          console.log("Edit");
+        }}
+      />
+      <UsersActionBtn
+        typeIcon="Delete"
+        disabled={true}
+        onClickEvent={() => {
+          console.log("Delete");
+        }}
+      />
 
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
