@@ -16,7 +16,7 @@ const UsersList = (props: IProps) => {
       .then((json) => setUsersList(json["users"]));
   }, []);
 
-  return <div>{!show && <UsersTable arr={usersList} />}</div>;
+  return <div>{show && <UsersTable arr={usersList} />}</div>;
 };
 
 export default UsersList;

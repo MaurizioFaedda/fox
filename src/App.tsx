@@ -44,7 +44,7 @@ const App = () => {
       so I pass the boolean value*/}
       <CompaniesList show={showTable} />
 
-      <UsersList show={showTable} />
+      <UsersList show={showTableUsers} />
     </div>
   );
 };
