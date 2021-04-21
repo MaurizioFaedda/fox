@@ -56,13 +56,29 @@ const UsersTable = (props: IProps) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Surname</StyledTableCell>
+              <StyledTableCell>Username</StyledTableCell>
               <StyledTableCell>Id</StyledTableCell>
               <StyledTableCell>Age</StyledTableCell>
               <StyledTableCell>Birthday</StyledTableCell>
               <StyledTableCell>Id Company</StyledTableCell>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {arr.map((item: any) => (
+              <StyledTableRow key={item.id}>
+                <StyledTableCell component="th" scope="row">
+                  {item.name}
+                </StyledTableCell>
+                <StyledTableCell align="left">{item.username}</StyledTableCell>
+                <StyledTableCell align="left">{item.id}</StyledTableCell>
+                <StyledTableCell align="left">{item.age}</StyledTableCell>
+                <StyledTableCell align="left">{item.birthday}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {item.idCompany}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </>
