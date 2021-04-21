@@ -31,32 +31,6 @@ const CompanyActionBtn = (props: IProps) => {
     }
   }, []);
   return (
-<<<<<<< HEAD
-    <>
-      {(() => {
-        switch (typeIcon) {
-          case "Add":
-            return (
-              <IconButton>
-                <AddIcon />
-              </IconButton>
-            );
-          case "Edit":
-            return (
-              <IconButton>
-                <EditIcon />
-              </IconButton>
-            );
-          case "Delete":
-            return (
-              <IconButton disabled={true}>
-                <DeleteIcon />
-              </IconButton>
-            );
-        }
-      })()}
-    </>
-=======
     <button disabled={isActived} onClick={() => onClickEvent}>
       {title}
     </button>
@@ -84,7 +58,6 @@ const CompanyActionBtn = (props: IProps) => {
     //     }
     //   })()}
     // </>
->>>>>>> b8af443892948a64e3760ed2091941aaaf6f0965
   );
 };
 
