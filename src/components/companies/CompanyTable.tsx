@@ -52,9 +52,27 @@ const CompanyTable = (props: IProps) => {
 
   return (
     <>
-      <CompanyActionBtn isActived={true} typeIcon="Add" />
-      <CompanyActionBtn isActived={false} typeIcon="Edit" />
-      <CompanyActionBtn isActived={false} typeIcon="Delete" />
+      <CompanyActionBtn
+        isActived={false}
+        typeIcon="Add"
+        onClickEvent={() => {
+          console.log("Add");
+        }}
+      />
+      <CompanyActionBtn
+        isActived={true}
+        typeIcon="Edit"
+        onClickEvent={() => {
+          console.log("Edit");
+        }}
+      />
+      <CompanyActionBtn
+        isActived={true}
+        typeIcon="Delete"
+        onClickEvent={() => {
+          console.log("Delete");
+        }}
+      />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
