@@ -12,6 +12,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import CompanyActionBtn from "./CompanyActionBtn";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +52,9 @@ const CompanyTable = (props: IProps) => {
 
   return (
     <>
+      <CompanyActionBtn isActived={true} typeIcon="Add" />
+      <CompanyActionBtn isActived={false} typeIcon="Edit" />
+      <CompanyActionBtn isActived={false} typeIcon="Delete" />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

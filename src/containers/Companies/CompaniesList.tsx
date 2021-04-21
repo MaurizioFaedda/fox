@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CompanyTable from "../../components/companies/CompanyTable";
 import { ICompanies } from "./type";
-import CompanyActionBtn from "../../components/companies/CompanyActionBtn";
 
 type IProps = {
   show: Boolean;
@@ -18,14 +17,7 @@ const CompaniesList = (props: IProps) => {
       .then((response) => response.json())
       .then((json) => setCompaniesList(json["companies"]));
   }, []);
-  return (
-    <>
-      <CompanyActionBtn typeIcon="Add" />
-      <CompanyActionBtn typeIcon="Edit" />
-      <CompanyActionBtn typeIcon="Delete" />
-      {show && <CompanyTable arr={companiesList} />}
-    </>
-  );
+  return <>{show && <CompanyTable arr={companiesList} />}</>;
 };
 
 export default CompaniesList;
