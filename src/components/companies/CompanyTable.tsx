@@ -50,30 +50,32 @@ const CompanyTable = (props: IProps) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Activated By</StyledTableCell>
-            <StyledTableCell align="right">Revenue</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {arr.map((item: any) => (
-            <StyledTableRow key={item.Id}>
-              <StyledTableCell component="th" scope="row">
-                {item.Name}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {item.ActivatedBy}
-              </StyledTableCell>
-              <StyledTableCell align="right">{item.Revenue}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell align="right">Activated By</StyledTableCell>
+              <StyledTableCell align="right">Revenue</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {arr.map((item: any) => (
+              <StyledTableRow key={item.Id}>
+                <StyledTableCell component="th" scope="row">
+                  {item.Name}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {item.ActivatedBy}
+                </StyledTableCell>
+                <StyledTableCell align="right">{item.Revenue}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
