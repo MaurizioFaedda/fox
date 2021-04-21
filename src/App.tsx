@@ -29,12 +29,7 @@ const App = () => {
   };
 
   const handleFocusOnClick = (index: number) => {
-    // let focusItem = arr.filter((elem) => {
-    //   if (elem.id === id) {
-    //     return elem;
-    //   }
     setSelected(index);
-    // console.log(index);
   };
 
   return (
@@ -52,7 +47,11 @@ const App = () => {
       {/* I haven't put the condition here because 
       if not at every click it makes the call 
       so I pass the boolean value*/}
-      <CompaniesList show={showTable} />
+      <CompaniesList
+        show={showTable}
+        selected={selected}
+        handleFocusOnClick={handleFocusOnClick}
+      />
 
       <UsersList
         selected={selected}

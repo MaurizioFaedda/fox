@@ -8,9 +8,10 @@ type IProps = {
   typeIcon: any;
   disabled: boolean;
   onClickEvent: Function;
+  selected?: number;
 };
 const CompanyActionBtn = (props: IProps) => {
-  const { typeIcon, disabled, onClickEvent } = props;
+  const { typeIcon, disabled, onClickEvent, selected } = props;
   const [title, setTitle] = useState<string>("");
   useEffect(() => {
     switch (typeIcon) {
@@ -30,7 +31,10 @@ const CompanyActionBtn = (props: IProps) => {
     }
   }, []);
   return (
-    <button disabled={disabled} onClick={() => onClickEvent}>
+    <button
+      disabled={selected ? false : disabled}
+      onClick={() => onClickEvent()}
+    >
       {title}
     </button>
     // <>
