@@ -31,10 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   handleToggle: () => void;
+  handleToggleUsers: () => void;
 };
 
 const ButtonBases = (props: IProps) => {
-  const { handleToggle } = props;
+  const { handleToggle, handleToggleUsers } = props;
   const classes = useStyles();
 
   return (
@@ -43,7 +44,7 @@ const ButtonBases = (props: IProps) => {
       <Companies handleToggle={handleToggle} />
 
       {/* button users list */}
-      <Users />
+      <Users handleToggleUsers={handleToggleUsers} />
     </div>
   );
 };

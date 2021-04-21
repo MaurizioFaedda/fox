@@ -2,23 +2,18 @@ import React from "react";
 import UsersBtn from "../../components/users/actionButtons/UsersBtn";
 import { IUsers } from "./type";
 
-type IProps = {};
+type IProps = {
+  handleToggleUsers: () => void;
+};
+
 const Users = (props: IProps) => {
-  const [listUsers, setListUsers] = React.useState<IUsers[]>([]);
+  const { handleToggleUsers } = props;
 
-  const handleShowUsers = () => {
-    console.log("pietro 2");
-
-    let _listUsers = listUsers;
-
-    //  TODO da sistemare
-    _listUsers.push({
-      Id: 1,
-      Name: "peppo",
-    });
-  };
-
-  return <UsersBtn title="Show Users" goPageUser={handleShowUsers} />;
+  return (
+    <>
+      <UsersBtn title="Users" goPageUser={handleToggleUsers} />
+    </>
+  );
 };
 
 export default Users;

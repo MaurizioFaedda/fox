@@ -1,5 +1,8 @@
-//TODO da sistemare 
 export type IUsers = {
-    Id: number,
-    Name: string,
+    id: number,
+    name: string,
+    username: string,
+    age: number,
+    birthday: string,
+    idCompany: number
 }
