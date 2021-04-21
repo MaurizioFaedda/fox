@@ -4,10 +4,12 @@ import { IUsers } from "./type";
 
 type IProps = {
   show: Boolean;
+  selected?: number;
+  handleFocusOnClick(id: number): void;
 };
 
 const UsersList = (props: IProps) => {
-  const { show } = props;
+  const { show, handleFocusOnClick, selected } = props;
   const [usersList, setUsersList] = useState<IUsers[]>([]);
 
   useEffect(() => {
@@ -16,7 +18,17 @@ const UsersList = (props: IProps) => {
       .then((json) => setUsersList(json["users"]));
   }, []);
 
-  return <div>{show && <UsersTable arr={usersList} />}</div>;
+  return (
+    <div>
+      {show && (
+        <UsersTable
+          selected={selected && selected}
+          arr={usersList}
+          handleFocusOnClick={handleFocusOnClick}
+        />
+      )}
+    </div>
+  );
 };
 
 export default UsersList;

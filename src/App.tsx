@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ComplexButtons from "./containers/ComplexButtons";
 import CompaniesList from "./containers/Companies/CompaniesList";
 import UsersList from "./containers/users/UsersList";
@@ -6,6 +6,7 @@ import UsersList from "./containers/users/UsersList";
 const App = () => {
   const [showTable, setShowTable] = useState<Boolean>(false);
   const [showTableUsers, setShowTableUsers] = useState<Boolean>(false);
+  const [selected, setSelected] = React.useState<number>();
 
   const handleToggle = () => {
     if (showTable) {
@@ -27,6 +28,15 @@ const App = () => {
     }
   };
 
+  const handleFocusOnClick = (index: number) => {
+    // let focusItem = arr.filter((elem) => {
+    //   if (elem.id === id) {
+    //     return elem;
+    //   }
+    setSelected(index);
+    // console.log(index);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -44,7 +54,11 @@ const App = () => {
       so I pass the boolean value*/}
       <CompaniesList show={showTable} />
 
-      <UsersList show={showTableUsers} />
+      <UsersList
+        selected={selected}
+        show={showTableUsers}
+        handleFocusOnClick={handleFocusOnClick}
+      />
     </div>
   );
 };

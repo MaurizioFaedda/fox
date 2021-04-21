@@ -3,15 +3,17 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 type IProps = {
   typeIcon: any;
-  disabled: boolean;
+  disabled?: boolean;
   onClickEvent: Function;
+  selected?: number;
 };
 
 const UsersActionBtn = (props: IProps) => {
-  const { typeIcon, disabled, onClickEvent } = props;
+  const { typeIcon, disabled = true, onClickEvent, selected } = props;
   const [title, setTitle] = useState<string>("");
   useEffect(() => {
     switch (typeIcon) {
@@ -31,7 +33,10 @@ const UsersActionBtn = (props: IProps) => {
     }
   }, []);
   return (
-    <button disabled={disabled} onClick={() => onClickEvent}>
+    <button
+      disabled={selected ? false : disabled}
+      onClick={() => onClickEvent()}
+    >
       {title}
     </button>
   );

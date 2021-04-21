@@ -44,10 +44,12 @@ const useStyles = makeStyles({
 
 type IProps = {
   arr: any;
+  selected?: number;
+  handleFocusOnClick(id: number): void;
 };
 
 const UsersTable = (props: IProps) => {
-  const { arr } = props;
+  const { arr, handleFocusOnClick, selected } = props;
   const classes = useStyles();
 
   return (
@@ -55,22 +57,23 @@ const UsersTable = (props: IProps) => {
       <UsersActionBtn
         typeIcon="Add"
         disabled={false}
+        selected={selected}
         onClickEvent={() => {
-          console.log("Add");
+          console.log("Add ebbasta");
         }}
       />
       <UsersActionBtn
         typeIcon="Edit"
-        disabled={true}
+        selected={selected}
         onClickEvent={() => {
-          console.log("Edit");
+          console.log("Edit selected", selected);
         }}
       />
       <UsersActionBtn
         typeIcon="Delete"
-        disabled={true}
+        selected={selected}
         onClickEvent={() => {
-          console.log("Delete");
+          console.log("Delete selected", selected);
         }}
       />
 
@@ -87,8 +90,13 @@ const UsersTable = (props: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {arr.map((item: any) => (
-              <StyledTableRow key={item.id}>
+            {arr.map((item: any, index: number) => (
+              <StyledTableRow
+                key={index + 1}
+                onClick={() => {
+                  handleFocusOnClick(index + 1);
+                }}
+              >
                 <StyledTableCell component="th" scope="row">
                   {item.name}
                 </StyledTableCell>
