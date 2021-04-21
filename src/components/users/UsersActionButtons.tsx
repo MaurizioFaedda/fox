@@ -6,14 +6,20 @@ import EditIcon from "@material-ui/icons/Edit";
 
 type IProps = {
   typeIcon: any;
-  isActived: Boolean;
 };
-const CompanyActionBtn = (props: IProps) => {
-  const { typeIcon, isActived } = props;
+
+const UsersActionBtn = (props: IProps) => {
+  const { typeIcon } = props;
   return (
     <>
       {(() => {
         switch (typeIcon) {
+          case "Delete":
+            return (
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            );
           case "Add":
             return (
               <IconButton>
@@ -26,16 +32,10 @@ const CompanyActionBtn = (props: IProps) => {
                 <EditIcon />
               </IconButton>
             );
-          case "Delete":
-            return (
-              <IconButton disabled={true}>
-                <DeleteIcon />
-              </IconButton>
-            );
         }
       })()}
     </>
   );
 };
 
-export default CompanyActionBtn;
+export default UsersActionBtn;

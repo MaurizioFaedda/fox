@@ -12,6 +12,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import UsersActionBtn from "./UsersActionButtons";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +52,10 @@ const UsersTable = (props: IProps) => {
 
   return (
     <>
+      <UsersActionBtn typeIcon="Add" />
+      <UsersActionBtn typeIcon="Edit" />
+      <UsersActionBtn typeIcon="Delete" />
+
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -73,9 +78,7 @@ const UsersTable = (props: IProps) => {
                 <StyledTableCell align="left">{item.id}</StyledTableCell>
                 <StyledTableCell align="left">{item.age}</StyledTableCell>
                 <StyledTableCell align="left">{item.birthday}</StyledTableCell>
-                <StyledTableCell align="left">
-                  {item.idCompany}
-                </StyledTableCell>
+                <StyledTableCell align="left">{item.idCompany}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
