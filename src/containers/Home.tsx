@@ -68,18 +68,6 @@ const Home = (props: IProps) => {
     setSelected(index);
   };
 
-  //pop up functions
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-    console.log(open);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   // add functions
 
   // TODO DA SISTEMARE
@@ -147,12 +135,9 @@ const Home = (props: IProps) => {
       <CompaniesList
         show={showTable}
         selected={selected}
-        handleClose={handleClose}
-        handleOpen={handleOpen}
         handleFocusOnClick={handleFocusOnClick}
         list={companiesList}
         deleteSelected={deleteSelected}
-        open={open}
       />
 
       {/* button users list */}
@@ -162,9 +147,6 @@ const Home = (props: IProps) => {
         handleFocusOnClick={handleFocusOnClick}
         list={usersList}
         deleteSelectedUsers={deleteSelectedUsers}
-        handleClose={handleClose}
-        handleOpen={handleOpen}
-        open={open}
         addUser={addUser}
       />
     </div>

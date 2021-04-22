@@ -7,9 +7,6 @@ type IProps = {
   list: any;
   handleFocusOnClick(id: number): void;
   deleteSelectedUsers(selected?: number): void;
-  handleClose: Function;
-  handleOpen: Function;
-  open: boolean;
   addUser: Function;
 };
 
@@ -20,9 +17,6 @@ const UsersList = (props: IProps) => {
     selected,
     list,
     deleteSelectedUsers,
-    handleClose,
-    handleOpen,
-    open,
     addUser,
   } = props;
 
@@ -44,8 +38,6 @@ const UsersList = (props: IProps) => {
           handleFocusOnClick={handleFocusOnClick}
           list={list}
           deleteSelectedUsers={deleteSelectedUsers}
-          handleClose={handleClose}
-          open={open}
           addUser={addUserTable}
         />
       )}

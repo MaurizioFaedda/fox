@@ -57,22 +57,18 @@ type IProps = {
   selected?: number;
   deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
-  handleClose: Function;
-  handleOpen: Function;
-  open: boolean;
 };
 
 const CompanyTable = (props: IProps) => {
-  const {
-    arr,
-    selected,
-    handleFocusOnClick,
-    deleteSelected,
-    handleClose,
-    handleOpen,
-    open,
-  } = props;
+  const { arr, selected, handleFocusOnClick, deleteSelected } = props;
+
   const c = useStyles();
+
+  // Stato locale da gestire qua tipo open popup / close popup
+  const [openNew, setOpenNew] = React.useState<boolean>(false);
+  const handleClose = () => {
+    setOpenNew(false);
+  };
 
   return (
     <>
@@ -82,10 +78,10 @@ const CompanyTable = (props: IProps) => {
           disabled={false}
           typeIcon="Add"
           onClickEvent={() => {
-            handleOpen();
+            setOpenNew(true);
           }}
         />
-        <AddForm open={open} />
+        <AddForm open={openNew} handleClose={handleClose} />
 
         <CompanyActionBtn
           selected={selected}
