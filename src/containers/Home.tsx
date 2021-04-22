@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import CompaniesList from "./companies/CompaniesList";
 import UsersList from "./users/UsersList";
@@ -95,7 +95,7 @@ const Home = (props: IProps) => {
     console.log(newAdd);
   };
 
-  const handleChange = () => {};
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {};
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -143,6 +143,7 @@ const Home = (props: IProps) => {
         <CompanyBtn handleToggle={handleToggle} title="Companies" />
         <UsersBtn title="Users" goPageUser={handleToggleUsers} />
       </header>
+      <button onClick={addUser}>Click</button>
       {/* button companies list */}
       <CompaniesList
         show={showTable}

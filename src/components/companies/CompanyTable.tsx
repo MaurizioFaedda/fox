@@ -85,7 +85,7 @@ const CompanyTable = (props: IProps) => {
             handleOpen();
           }}
         />
-        <AddForm open={open} />
+        <AddForm open={open} handleClose={handleClose} />
 
         <CompanyActionBtn
           selected={selected}
