@@ -5,6 +5,7 @@ import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
 import { ICompanies } from "./companies/type";
+import { IUsers } from "./users/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,9 +26,11 @@ const Home = (props: IProps) => {
   const [showTableUsers, setShowTableUsers] = useState<Boolean>(false);
   const [selected, setSelected] = React.useState<number>();
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
+  const [usersList, setUsersList] = useState<IUsers[]>([]);
 
   const c = useStyles();
 
+  // API call Companies
   useEffect(() => {
     fetch(
       `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
@@ -36,6 +39,13 @@ const Home = (props: IProps) => {
       .then((json) => setCompaniesList(json["companies"]));
 
     // };
+  }, []);
+
+  // API call Users
+  useEffect(() => {
+    fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
+      .then((response) => response.json())
+      .then((json) => setUsersList(json["users"]));
   }, []);
 
   const handleToggle = () => {
@@ -62,6 +72,22 @@ const Home = (props: IProps) => {
     setSelected(index);
   };
 
+  //pop up functions
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+    console.log(open);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // add functions
+  const addUser = () => {};
+
+  // delete functions
   const deleteSelected = (selected: number) => {
     console.log(selected);
     const newArr = companiesList.filter((item) => {
@@ -70,6 +96,16 @@ const Home = (props: IProps) => {
     setCompaniesList(newArr);
     console.log(selected);
     console.log(companiesList);
+  };
+
+  const deleteSelectedUsers = (selected: number) => {
+    console.log(selected);
+    const newArr = usersList.filter((item) => {
+      return usersList.indexOf(item) + 1 !== selected;
+    });
+    setUsersList(newArr);
+    console.log(selected);
+    console.log(usersList);
   };
 
   return (
@@ -92,6 +128,11 @@ const Home = (props: IProps) => {
         selected={selected}
         show={showTableUsers}
         handleFocusOnClick={handleFocusOnClick}
+        list={usersList}
+        deleteSelectedUsers={deleteSelectedUsers}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+        open={open}
       />
     </div>
   );

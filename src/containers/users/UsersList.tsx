@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UsersTable from "../../components/users/UsersTable";
-import { IUsers } from "./type";
 
 type IProps = {
   show: Boolean;
   selected?: number;
+  list: any;
   handleFocusOnClick(id: number): void;
+  deleteSelectedUsers(selected?: number): void;
+  handleClose: Function;
+  handleOpen: Function;
+  open: Boolean;
 };
 
 const UsersList = (props: IProps) => {
-  const { show, handleFocusOnClick, selected } = props;
-  const [usersList, setUsersList] = useState<IUsers[]>([]);
-
-  useEffect(() => {
-    fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
-      .then((response) => response.json())
-      .then((json) => setUsersList(json["users"]));
-  }, []);
+  const {
+    show,
+    handleFocusOnClick,
+    selected,
+    list,
+    deleteSelectedUsers,
+    handleClose,
+    handleOpen,
+    open,
+  } = props;
 
   return (
     <div>
       {show && (
         <UsersTable
           selected={selected && selected}
-          arr={usersList}
           handleFocusOnClick={handleFocusOnClick}
+          list={list}
+          deleteSelectedUsers={deleteSelectedUsers}
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+          open={open}
         />
       )}
     </div>
