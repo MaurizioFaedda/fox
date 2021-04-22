@@ -5,7 +5,6 @@ import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
 import { ICompanies } from "./companies/type";
-import { IUsers } from "./users/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,17 +23,6 @@ type IProps = {};
 const Home = (props: IProps) => {
   const [showTable, setShowTable] = useState<Boolean>(false);
   const [showTableUsers, setShowTableUsers] = useState<Boolean>(false);
-  const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
-  const [usersList, setUsersList] = useState<IUsers[]>([]);
-  const [newUser, setNewUser] = useState<IUsers[]>([
-    {
-      id: 0,
-      name: "mario",
-      username: "prova",
-      age: 0,
-      birthday: "adfafa",
-    },
-  ]);
 
   const c = useStyles();
 
@@ -63,80 +51,22 @@ const Home = (props: IProps) => {
     }
   };
 
-  const handleFocusOnClick = (index: number) => {
-    setSelected(index);
-  };
-
-  // add functions
-
-  // TODO DA SISTEMARE
-  const addUser = () => {
-    const newAdd = {
-      id: newUser[0].id,
-      name: newUser[0].name,
-      username: newUser[0].username,
-      age: newUser[0].age,
-      birthday: newUser[0].birthday,
-    };
-    setUsersList([newAdd, ...usersList]);
-    console.log(newAdd);
-  };
-
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {};
-
-  // delete functions
-  const deleteSelected = (selected: number) => {
-    console.log(selected);
-    const newArr = companiesList.filter((item) => {
-      return companiesList.indexOf(item) + 1 !== selected;
-    });
-    setCompaniesList(newArr);
-    setSelected(0);
-  };
-
   /**
    * Zona useEffect
    */
 
-  // API call Companies
-  useEffect(() => {
-    fetch(
-      `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
-    )
-      .then((response) => response.json())
-      .then((json) => setCompaniesList(json["companies"]));
-
-    // };
-  }, []);
-
-  // API call Users
-  useEffect(() => {
-    fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
-      .then((response) => response.json())
-      .then((json) => setUsersList(json["users"]));
-  }, []);
   return (
     <div>
       <header className={c.header}>
         <CompanyBtn handleToggle={handleToggle} title="Companies" />
         <UsersBtn title="Users" goPageUser={handleToggleUsers} />
       </header>
-      <button onClick={addUser}>Click</button>
+      {/* <button onClick={addUser}>Click</button> */}
       {/* button companies list */}
-      <CompaniesList
-        show={showTable}
-        handleFocusOnClick={handleFocusOnClick}
-        list={companiesList}
-        deleteSelected={deleteSelected}
-      />
+      <CompaniesList show={showTable} />
 
       {/* button users list */}
-      <UsersList
-        show={showTableUsers}
-        handleFocusOnClick={handleFocusOnClick}
-        list={usersList}
-        addUser={addUser}
-      />
+      <UsersList show={showTableUsers} />
     </div>
   );
 };
