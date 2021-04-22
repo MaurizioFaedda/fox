@@ -86,7 +86,7 @@ const UsersTable = (props: IProps) => {
             handleOpen();
           }}
         />
-        <AddForm open={open} />
+        <AddForm open={open} handleClose={handleClose} />
 
         <UsersActionBtn
           typeIcon="Edit"
