@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CompanyTable from "../../components/companies/CompanyTable";
+import { ICompanies } from "./type";
 
 type IProps = {
   show: Boolean;
-  selected?: number;
-  list: any;
-  deleteSelected(selected: number): void;
-  handleFocusOnClick(id: number): void;
 };
 
 const CompaniesList = (props: IProps) => {
-  const { show, handleFocusOnClick, selected, list, deleteSelected } = props;
+  const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
+  const [selected, setSelected] = React.useState<number>();
 
-  // useEffect(() => {
-  //   console.log("CompaniesList show", show);
-  //   if (show) {
-  //     console.log("sono vero");
-  //   }
-  // }, [show]);
+  const { show } = props;
+
+  // delete functions
+  const deleteSelected = (selected: number) => {
+    console.log(selected);
+    const newArr = companiesList.filter((item) => {
+      return companiesList.indexOf(item) + 1 !== selected;
+    });
+    setCompaniesList(newArr);
+    setSelected(0);
+  };
+
+  const handleFocusOnClick = (index: number) => {
+    setSelected(index);
+  };
+
+  useEffect(() => {
+    fetch(
+      `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
+    )
+      .then((response) => response.json())
+      .then((json) => setCompaniesList(json["companies"]));
+
+    // };
+  }, []);
+
   return (
     <>
       {show && (
         <CompanyTable
-          arr={list}
+          arr={companiesList}
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
           deleteSelected={deleteSelected}

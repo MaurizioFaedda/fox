@@ -1,10 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import CompaniesList from "./companies/CompaniesList";
 import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
-import { ICompanies } from "./companies/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,7 +60,6 @@ const Home = (props: IProps) => {
         <CompanyBtn handleToggle={handleToggle} title="Companies" />
         <UsersBtn title="Users" goPageUser={handleToggleUsers} />
       </header>
-      {/* <button onClick={addUser}>Click</button> */}
       {/* button companies list */}
       <CompaniesList show={showTable} />
 
