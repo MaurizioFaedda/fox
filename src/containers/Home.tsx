@@ -27,7 +27,15 @@ const Home = (props: IProps) => {
   const [selected, setSelected] = React.useState<number>();
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [usersList, setUsersList] = useState<IUsers[]>([]);
-  const [newUser, setNewUser] = useState<IUsers[]>([]);
+  const [newUser, setNewUser] = useState<IUsers[]>([
+    {
+      id: 0,
+      name: "mario",
+      username: "prova",
+      age: 0,
+      birthday: "adfafa",
+    },
+  ]);
 
   const c = useStyles();
 
@@ -87,7 +95,20 @@ const Home = (props: IProps) => {
 
   // add functions
 
-  const addUser = () => {};
+  // TODO DA SISTEMARE
+  const addUser = () => {
+    const newAdd = {
+      id: newUser[0].id,
+      name: newUser[0].name,
+      username: newUser[0].username,
+      age: newUser[0].age,
+      birthday: newUser[0].birthday,
+    };
+    setUsersList([newAdd, ...usersList]);
+    console.log(newAdd);
+  };
+
+  const handleChange = () => {};
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -136,6 +157,7 @@ const Home = (props: IProps) => {
         handleClose={handleClose}
         handleOpen={handleOpen}
         open={open}
+        addUser={addUser}
       />
     </div>
   );

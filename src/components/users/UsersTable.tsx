@@ -60,6 +60,7 @@ type IProps = {
   handleClose: Function;
   handleOpen: Function;
   open: boolean;
+  addUser: Function;
 };
 
 const UsersTable = (props: IProps) => {
@@ -71,6 +72,7 @@ const UsersTable = (props: IProps) => {
     handleClose,
     handleOpen,
     open,
+    addUser,
   } = props;
   const c = useStyles();
 
@@ -86,7 +88,7 @@ const UsersTable = (props: IProps) => {
             handleOpen();
           }}
         />
-        <AddForm open={open} handleClose={handleClose} />
+        <AddForm open={open} handleClose={handleClose} addUser={addUser} />
 
         <UsersActionBtn
           typeIcon="Edit"

@@ -22,10 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   //   name: string;
+  addUser: Function;
 };
 
 const FormInput = (props: IProps) => {
-  //   const { name } = props;
+  const { addUser } = props;
   const c = useStyles();
   return (
     <div>
@@ -40,7 +41,7 @@ const FormInput = (props: IProps) => {
         <input type="text" className={c.input} name="age" />
         <label>Birthday</label>
         <input type="text" className={c.input} name="birthday" />
-        <button>Save datas</button>
+        <button onClick={() => addUser()}>Save datas</button>
       </form>
     </div>
   );

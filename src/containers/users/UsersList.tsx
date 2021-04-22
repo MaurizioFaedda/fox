@@ -10,6 +10,7 @@ type IProps = {
   handleClose: Function;
   handleOpen: Function;
   open: boolean;
+  addUser: Function;
 };
 
 const UsersList = (props: IProps) => {
@@ -22,6 +23,7 @@ const UsersList = (props: IProps) => {
     handleClose,
     handleOpen,
     open,
+    addUser,
   } = props;
 
   return (
@@ -35,6 +37,7 @@ const UsersList = (props: IProps) => {
           handleClose={handleClose}
           handleOpen={handleOpen}
           open={open}
+          addUser={addUser}
         />
       )}
     </div>

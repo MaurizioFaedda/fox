@@ -6,10 +6,11 @@ import FormInput from "./FormInput";
 type IProps = {
   open: boolean;
   handleClose: Function;
+  addUser: Function;
 };
 
 const AddForm = (props: IProps) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, addUser } = props;
   return (
     <div>
       <Modal
@@ -19,7 +20,7 @@ const AddForm = (props: IProps) => {
         aria-describedby="simple-modal-description"
       >
         {/* <h1>prova</h1> */}
-        <FormInput />
+        <FormInput addUser={addUser} />
       </Modal>
     </div>
   );

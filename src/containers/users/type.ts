@@ -4,5 +4,5 @@ export type IUsers = {
     username: string,
     age: number,
     birthday: string,
-    idCompany: number
+    idCompany?: number
 }
