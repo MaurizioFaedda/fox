@@ -1,45 +1,26 @@
-import { makeStyles, Theme } from "@material-ui/core";
-import { createStyles } from "@material-ui/styles";
 import React from "react";
+import TextField from "@material-ui/core/TextField";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: "flex",
-      flexDirection: "column",
-      position: "absolute",
-      top: "40%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      padding: 25,
-      backgroundColor: "#fff",
-    },
-    input: {
-      border: "1px solid black",
-    },
-  })
-);
-
-type IProps = {};
+type IProps = {
+  label?: string;
+  value?: any;
+  handleChange?: any;
+  type: any;
+  name: string;
+};
 
 const FormInput = (props: IProps) => {
-  const c = useStyles();
+  const { label, value, handleChange, type, name } = props;
   return (
-    <div>
-      <form className={c.form}>
-        <label>Name</label>
-        <input type="text" className={c.input} name="name" />
-        <label>Username</label>
-        <input type="text" className={c.input} name="username" />
-        <label>Id</label>
-        <input type="text" className={c.input} name="id" />
-        <label>Age</label>
-        <input type="text" className={c.input} name="age" />
-        <label>Birthday</label>
-        <input type="text" className={c.input} name="birthday" />
-        <button>Save datas</button>
-      </form>
-    </div>
+    <TextField
+      type={type}
+      onChange={handleChange}
+      id="outlined-basic"
+      label={label}
+      name={name}
+      variant="outlined"
+      value={value}
+    />
   );
 };
 

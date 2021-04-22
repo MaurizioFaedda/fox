@@ -57,10 +57,17 @@ type IProps = {
   selected?: number;
   deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
+  addCompanies(item: any): void;
 };
 
 const CompanyTable = (props: IProps) => {
-  const { arr, selected, handleFocusOnClick, deleteSelected } = props;
+  const {
+    arr,
+    selected,
+    handleFocusOnClick,
+    deleteSelected,
+    addCompanies,
+  } = props;
 
   const c = useStyles();
 
@@ -81,7 +88,12 @@ const CompanyTable = (props: IProps) => {
             setOpenNew(true);
           }}
         />
-        <AddForm open={openNew} handleClose={handleClose} />
+        <AddForm
+          open={openNew}
+          handleClose={handleClose}
+          arr={arr}
+          addCompanies={addCompanies}
+        />
 
         <CompanyActionBtn
           selected={selected}
