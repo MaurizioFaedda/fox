@@ -27,6 +27,7 @@ const Home = (props: IProps) => {
   const [selected, setSelected] = React.useState<number>();
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [usersList, setUsersList] = useState<IUsers[]>([]);
+  const [newUser, setNewUser] = useState<IUsers[]>([]);
 
   const c = useStyles();
 
@@ -85,6 +86,7 @@ const Home = (props: IProps) => {
   };
 
   // add functions
+
   const addUser = () => {};
 
   // delete functions
