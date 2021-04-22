@@ -24,7 +24,6 @@ type IProps = {};
 const Home = (props: IProps) => {
   const [showTable, setShowTable] = useState<Boolean>(false);
   const [showTableUsers, setShowTableUsers] = useState<Boolean>(false);
-  const [selected, setSelected] = React.useState<number>();
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [usersList, setUsersList] = useState<IUsers[]>([]);
   const [newUser, setNewUser] = useState<IUsers[]>([
@@ -95,15 +94,6 @@ const Home = (props: IProps) => {
     setSelected(0);
   };
 
-  const deleteSelectedUsers = (selected: number) => {
-    console.log(selected);
-    const newArr = usersList.filter((item) => {
-      return usersList.indexOf(item) + 1 !== selected;
-    });
-    setUsersList(newArr);
-    setSelected(0);
-  };
-
   /**
    * Zona useEffect
    */
@@ -135,7 +125,6 @@ const Home = (props: IProps) => {
       {/* button companies list */}
       <CompaniesList
         show={showTable}
-        selected={selected}
         handleFocusOnClick={handleFocusOnClick}
         list={companiesList}
         deleteSelected={deleteSelected}
@@ -143,11 +132,9 @@ const Home = (props: IProps) => {
 
       {/* button users list */}
       <UsersList
-        selected={selected}
         show={showTableUsers}
         handleFocusOnClick={handleFocusOnClick}
         list={usersList}
-        deleteSelectedUsers={deleteSelectedUsers}
         addUser={addUser}
       />
     </div>
