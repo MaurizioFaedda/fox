@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import FormInput from "./FormInput";
 
 type IProps = {
   open: boolean;
@@ -17,8 +18,8 @@ const AddForm = (props: IProps) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <h1>prova</h1>
-        {/* <FormInput /> */}
+        {/* <h1>prova</h1> */}
+        <FormInput />
       </Modal>
     </div>
   );
