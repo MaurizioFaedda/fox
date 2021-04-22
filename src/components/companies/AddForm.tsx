@@ -47,42 +47,33 @@ const AddForm = (props: IProps) => {
   const { open, handleClose, arr, addCompanies } = props;
 
   // useState
-  const [newCompanies, setNewCompanies] = useState<ICompanies>({
-    Id: 0,
-    Name: "",
-    ActivatedBy: formatDate(new Date()),
-    Revenue: 0,
-  });
+  const [newName, setNewName] = useState<string>("");
+  const [newActivatedBy, setNewActivatedBy] = useState<any>(
+    formatDate(new Date())
+  );
+  const [newRevenue, setNewRevenue] = useState<any>(0);
+  // const [newCompanies, setNewCompanies] = useState<ICompanies>({
+  //   Id: 0,
+  //   Name: "",
+  //   ActivatedBy: formatDate(new Date()),
+  //   Revenue: 0,
+  // });
+  const [newCompanies, setNewCompanies] = useState<ICompanies[]>([]);
 
   const c = useStyles();
 
   // change the value of the new company
   // if it is equal to the name of the input
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    switch (event.target.name) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    switch (e.target.name) {
       case "Name":
-        setNewCompanies({
-          Id: newCompanies.Id,
-          Name: event.target.value,
-          ActivatedBy: newCompanies.ActivatedBy,
-          Revenue: newCompanies.Revenue,
-        });
+        setNewName(e.target.value);
         break;
       case "ActivatedBy":
-        setNewCompanies({
-          Id: newCompanies.Id,
-          Name: newCompanies.Name,
-          ActivatedBy: formatDate(event.target.value),
-          Revenue: newCompanies.Revenue,
-        });
+        setNewActivatedBy(formatDate(e.target.value));
         break;
       case "Revenue":
-        setNewCompanies({
-          Id: newCompanies.Id,
-          Name: newCompanies.Name,
-          ActivatedBy: newCompanies.ActivatedBy,
-          Revenue: event.target.value,
-        });
+        setNewRevenue(e.target.value);
 
         break;
       default:
