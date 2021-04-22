@@ -13,6 +13,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CompanyActionBtn from "./CompanyActionBtn";
+import AddForm from "./AddForm";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -56,10 +57,21 @@ type IProps = {
   selected?: number;
   deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
+  handleClose: Function;
+  handleOpen: Function;
+  open: boolean;
 };
 
 const CompanyTable = (props: IProps) => {
-  const { arr, selected, handleFocusOnClick, deleteSelected } = props;
+  const {
+    arr,
+    selected,
+    handleFocusOnClick,
+    deleteSelected,
+    handleClose,
+    handleOpen,
+    open,
+  } = props;
   const c = useStyles();
 
   return (
@@ -70,9 +82,11 @@ const CompanyTable = (props: IProps) => {
           disabled={false}
           typeIcon="Add"
           onClickEvent={() => {
-            console.log("Add");
+            handleOpen();
           }}
         />
+        <AddForm open={open} />
+
         <CompanyActionBtn
           selected={selected}
           disabled={true}

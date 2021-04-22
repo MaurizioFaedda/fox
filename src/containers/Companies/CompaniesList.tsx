@@ -7,10 +7,22 @@ type IProps = {
   list: any;
   deleteSelected(selected: number): void;
   handleFocusOnClick(id: number): void;
+  handleClose: Function;
+  handleOpen: Function;
+  open: boolean;
 };
 
 const CompaniesList = (props: IProps) => {
-  const { show, selected, handleFocusOnClick, list, deleteSelected } = props;
+  const {
+    show,
+    handleFocusOnClick,
+    selected,
+    list,
+    deleteSelected,
+    handleClose,
+    handleOpen,
+    open,
+  } = props;
 
   // useEffect(() => {
   //   console.log("CompaniesList show", show);
@@ -26,6 +38,9 @@ const CompaniesList = (props: IProps) => {
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
           deleteSelected={deleteSelected}
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+          open={open}
         />
       )}
     </>
