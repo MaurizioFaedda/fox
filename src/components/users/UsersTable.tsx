@@ -59,7 +59,7 @@ type IProps = {
   deleteSelectedUsers(selected?: number): void;
   handleClose: Function;
   handleOpen: Function;
-  open: Boolean;
+  open: boolean;
 };
 
 const UsersTable = (props: IProps) => {
