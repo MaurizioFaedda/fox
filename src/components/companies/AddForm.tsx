@@ -51,14 +51,8 @@ const AddForm = (props: IProps) => {
   const [newActivatedBy, setNewActivatedBy] = useState<any>(
     formatDate(new Date())
   );
+  const [countId, setCountId] = useState<number>(11);
   const [newRevenue, setNewRevenue] = useState<any>(0);
-  // const [newCompanies, setNewCompanies] = useState<ICompanies>({
-  //   Id: 0,
-  //   Name: "",
-  //   ActivatedBy: formatDate(new Date()),
-  //   Revenue: 0,
-  // });
-  const [newCompanies, setNewCompanies] = useState<ICompanies[]>([]);
 
   const c = useStyles();
 
@@ -80,6 +74,20 @@ const AddForm = (props: IProps) => {
         break;
     }
     console.log(arr);
+  };
+
+  const addNewCompany = () => {
+    setCountId(countId + 1);
+    const newCompanies = {
+      Id: countId,
+      Name: newName,
+      ActivatedBy: newActivatedBy,
+      Revenue: newRevenue,
+    };
+    addCompanies(newCompanies);
+    setNewName("");
+    setNewActivatedBy(formatDate(new Date()));
+    setNewRevenue(0);
   };
 
   return (
@@ -110,7 +118,7 @@ const AddForm = (props: IProps) => {
           />
           <button
             onClick={() => {
-              addCompanies(newCompanies);
+              addNewCompany();
               handleClose();
             }}
           >

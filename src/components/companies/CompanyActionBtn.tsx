@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
 
 type IProps = {
   typeIcon: any;
@@ -37,30 +33,6 @@ const CompanyActionBtn = (props: IProps) => {
     >
       {title}
     </button>
-    // <>
-    //   {(() => {
-    //     switch (typeIcon) {
-    //       case "Add":
-    //         return (
-    //           <IconButton>
-    //             <AddIcon />
-    //           </IconButton>
-    //         );
-    //       case "Edit":
-    //         return (
-    //           <IconButton disabled={isActived}>
-    //             <EditIcon />
-    //           </IconButton>
-    //         );
-    //       case "Delete":
-    //         return (
-    //           <IconButton disabled={isActived}>
-    //             <DeleteIcon />
-    //           </IconButton>
-    //         );
-    //     }
-    //   })()}
-    // </>
   );
 };
 
