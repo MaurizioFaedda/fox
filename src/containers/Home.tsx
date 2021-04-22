@@ -94,8 +94,7 @@ const Home = (props: IProps) => {
       return companiesList.indexOf(item) + 1 !== selected;
     });
     setCompaniesList(newArr);
-    console.log(selected);
-    console.log(companiesList);
+    setSelected(0);
   };
 
   const deleteSelectedUsers = (selected: number) => {
@@ -104,8 +103,7 @@ const Home = (props: IProps) => {
       return usersList.indexOf(item) + 1 !== selected;
     });
     setUsersList(newArr);
-    console.log(selected);
-    console.log(usersList);
+    setSelected(0);
   };
 
   return (
