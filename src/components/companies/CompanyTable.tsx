@@ -54,11 +54,12 @@ const useStyles = makeStyles({
 type IProps = {
   arr: any;
   selected?: number;
+  deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
 };
 
 const CompanyTable = (props: IProps) => {
-  const { arr, selected, handleFocusOnClick } = props;
+  const { arr, selected, handleFocusOnClick, deleteSelected } = props;
   const c = useStyles();
 
   return (
@@ -85,7 +86,7 @@ const CompanyTable = (props: IProps) => {
           disabled={true}
           typeIcon="Delete"
           onClickEvent={() => {
-            console.log("Delete", selected);
+            deleteSelected(selected);
           }}
         />
       </div>
