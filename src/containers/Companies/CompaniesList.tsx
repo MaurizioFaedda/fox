@@ -13,12 +13,23 @@ const CompaniesList = (props: IProps) => {
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
 
   useEffect(() => {
+    console.log("Entro nel componente CompaniesLiest");
     fetch(
       `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
     )
       .then((response) => response.json())
       .then((json) => setCompaniesList(json["companies"]));
+    // return () => {
+    //   console.log("Distruggo componente CompaniesList");
+    // };
   }, []);
+
+  useEffect(() => {
+    console.log("CompaniesList show", show);
+    if (show) {
+      console.log("sono vero");
+    }
+  }, [show]);
   return (
     <>
       {show && (

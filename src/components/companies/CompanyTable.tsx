@@ -28,11 +28,11 @@ const StyledTableCell = withStyles((theme: Theme) =>
 
 const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
-    root: {
-      "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
+    // root: {
+    //   "&:nth-of-type(odd)": {
+    //     backgroundColor: theme.palette.action.hover,
+    //   },
+    // },
   })
 )(TableRow);
 
@@ -42,6 +42,12 @@ const useStyles = makeStyles({
   },
   boxBtn: {
     float: "right",
+  },
+  selected: {
+    backgroundColor: "rgba(40,0,0,0.3)",
+  },
+  notSelected: {
+    backgroundColor: "unset",
   },
 });
 
@@ -96,6 +102,7 @@ const CompanyTable = (props: IProps) => {
           <TableBody>
             {arr.map((item: any, index: number) => (
               <StyledTableRow
+                className={index + 1 === selected ? c.selected : c.notSelected}
                 key={index + 1}
                 onClick={() => {
                   handleFocusOnClick(index + 1);
