@@ -69,7 +69,7 @@ const UsersList = (props: IProps) => {
         <UsersTable
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
-          list={list}
+          list={usersList}
           deleteSelectedUsers={deleteSelectedUsers}
           addUser={addUserTable}
         />
