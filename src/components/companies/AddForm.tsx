@@ -1,15 +1,96 @@
-import React from "react";
+import React, { useState, ChangeEvent } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import FormInput from "../companies/FormInput";
+import { ICompanies } from "../../containers/companies/type";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexDirection: "column",
+      position: "absolute",
+      top: "40%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      padding: 25,
+      borderRadius: 4,
+      backgroundColor: "#fff",
+      "& > *": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
+    },
+  })
+);
 
 type IProps = {
   open: boolean;
   handleClose: Function;
+  arr: any;
+  addCompanies(item: any): void;
+};
+
+// created constant to use today's date formatted by
+// default for the ActivedBy attribute
+const formatDate = (date: any) => {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+  return [day, month, year].join("/");
 };
 
 const AddForm = (props: IProps) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, arr, addCompanies } = props;
+
+  // useState
+  const [newCompanies, setNewCompanies] = useState<ICompanies>({
+    Id: 0,
+    Name: "",
+    ActivatedBy: formatDate(new Date()),
+    Revenue: 0,
+  });
+
+  const c = useStyles();
+
+  // change the value of the new company
+  // if it is equal to the name of the input
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    switch (event.target.name) {
+      case "Name":
+        setNewCompanies({
+          Id: newCompanies.Id,
+          Name: event.target.value,
+          ActivatedBy: newCompanies.ActivatedBy,
+          Revenue: newCompanies.Revenue,
+        });
+        break;
+      case "ActivatedBy":
+        setNewCompanies({
+          Id: newCompanies.Id,
+          Name: newCompanies.Name,
+          ActivatedBy: formatDate(event.target.value),
+          Revenue: newCompanies.Revenue,
+        });
+        break;
+      case "Revenue":
+        setNewCompanies({
+          Id: newCompanies.Id,
+          Name: newCompanies.Name,
+          ActivatedBy: newCompanies.ActivatedBy,
+          Revenue: event.target.value,
+        });
+
+        break;
+      default:
+        break;
+    }
+    console.log(arr);
+  };
+
   return (
     <div>
       <Modal
@@ -18,7 +99,33 @@ const AddForm = (props: IProps) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <FormInput />
+        <div className={c.root}>
+          <FormInput
+            type={"text"}
+            name={"Name"}
+            label={"Name"}
+            handleChange={handleChange}
+          />
+          <FormInput
+            type={"date"}
+            name={"ActivatedBy"}
+            handleChange={handleChange}
+          />
+          <FormInput
+            type={"number"}
+            label={"Revenue"}
+            name={"Revenue"}
+            handleChange={handleChange}
+          />
+          <button
+            onClick={() => {
+              addCompanies(newCompanies);
+              handleClose();
+            }}
+          >
+            save
+          </button>
+        </div>
       </Modal>
     </div>
   );

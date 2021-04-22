@@ -9,8 +9,21 @@ type IProps = {
 const CompaniesList = (props: IProps) => {
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [selected, setSelected] = React.useState<number>();
+  // const [newCompanies, setNewCompaies] = useState<ICompanies[]>([]);
 
   const { show } = props;
+
+  // add companies
+  const addCompanies = (item: any) => {
+    let count = companiesList.length + 1;
+    const newItem = {
+      Id: count++,
+      Name: item.Name,
+      ActivatedBy: item.ActivatedBy,
+      Revenue: item.Revenue,
+    };
+    setCompaniesList([newItem, ...companiesList]);
+  };
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -22,6 +35,7 @@ const CompaniesList = (props: IProps) => {
     setSelected(0);
   };
 
+  // focus of the row I click of the table
   const handleFocusOnClick = (index: number) => {
     setSelected(index);
   };
@@ -44,6 +58,7 @@ const CompaniesList = (props: IProps) => {
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
           deleteSelected={deleteSelected}
+          addCompanies={addCompanies}
         />
       )}
     </>
