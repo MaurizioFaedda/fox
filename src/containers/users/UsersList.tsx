@@ -3,31 +3,33 @@ import UsersTable from "../../components/users/UsersTable";
 
 type IProps = {
   show: Boolean;
-  selected?: number;
   list: any;
   handleFocusOnClick(id: number): void;
-  deleteSelectedUsers(selected?: number): void;
   addUser: Function;
 };
 
 const UsersList = (props: IProps) => {
-  const {
-    show,
-    handleFocusOnClick,
-    selected,
-    list,
-    deleteSelectedUsers,
-    addUser,
-  } = props;
+  const { show, handleFocusOnClick, list, addUser } = props;
 
+  const [selected, setSelected] = React.useState<number>();
   /** Gestione stato e funzioni che permettono di fare queste operazioni */
   // Add users
-  // Remove users
   // Edit users
   // Assegna Company
 
+  // add users
   const addUserTable = () => {
     console.log("addUserTable", "iNSERT NEW USER");
+  };
+
+  // delete users
+  const deleteSelectedUsers = (selected: number) => {
+    console.log(selected);
+    const newArr = usersList.filter((item) => {
+      return usersList.indexOf(item) + 1 !== selected;
+    });
+    setUsersList(newArr);
+    setSelected(0);
   };
 
   return (
