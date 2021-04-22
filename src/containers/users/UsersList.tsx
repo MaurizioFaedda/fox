@@ -26,6 +26,16 @@ const UsersList = (props: IProps) => {
     addUser,
   } = props;
 
+  /** Gestione stato e funzioni che permettono di fare queste operazioni */
+  // Add users
+  // Remove users
+  // Edit users
+  // Assegna Company
+
+  const addUserTable = () => {
+    console.log("addUserTable", "iNSERT NEW USER");
+  };
+
   return (
     <div>
       {show && (
@@ -35,9 +45,8 @@ const UsersList = (props: IProps) => {
           list={list}
           deleteSelectedUsers={deleteSelectedUsers}
           handleClose={handleClose}
-          handleOpen={handleOpen}
           open={open}
-          addUser={addUser}
+          addUser={addUserTable}
         />
       )}
     </div>

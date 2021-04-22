@@ -39,23 +39,10 @@ const Home = (props: IProps) => {
 
   const c = useStyles();
 
-  // API call Companies
-  useEffect(() => {
-    fetch(
-      `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
-    )
-      .then((response) => response.json())
-      .then((json) => setCompaniesList(json["companies"]));
-
-    // };
-  }, []);
-
-  // API call Users
-  useEffect(() => {
-    fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
-      .then((response) => response.json())
-      .then((json) => setUsersList(json["users"]));
-  }, []);
+  /**
+   * Gestirà la visualizzazione dei contextButton Home e del vedere o no la Userlist e la companyList a seconda di chi ho selezionato
+   * e il ritorna indietro (visualizzo di nuove i contextButton)
+   */
 
   const handleToggle = () => {
     if (showTable) {
@@ -129,6 +116,27 @@ const Home = (props: IProps) => {
     setSelected(0);
   };
 
+  /**
+   * Zona useEffect
+   */
+
+  // API call Companies
+  useEffect(() => {
+    fetch(
+      `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
+    )
+      .then((response) => response.json())
+      .then((json) => setCompaniesList(json["companies"]));
+
+    // };
+  }, []);
+
+  // API call Users
+  useEffect(() => {
+    fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
+      .then((response) => response.json())
+      .then((json) => setUsersList(json["users"]));
+  }, []);
   return (
     <div>
       <header className={c.header}>

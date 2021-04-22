@@ -28,6 +28,8 @@ type IProps = {
 const FormInput = (props: IProps) => {
   const { addUser } = props;
   const c = useStyles();
+
+  //Stato locale di tutti gli input quando clicchi conferma trampite props lo fari arrivare al master(container) UsersList. che eseguirà la addUserTable.
   return (
     <div>
       <form className={c.form}>

@@ -58,7 +58,7 @@ type IProps = {
   handleFocusOnClick(id: number): void;
   deleteSelectedUsers(selected?: number): void;
   handleClose: Function;
-  handleOpen: Function;
+
   open: boolean;
   addUser: Function;
 };
@@ -70,12 +70,14 @@ const UsersTable = (props: IProps) => {
     selected,
     deleteSelectedUsers,
     handleClose,
-    handleOpen,
+
     open,
     addUser,
   } = props;
   const c = useStyles();
 
+  // Stato locale da gestire qua tipo open popup / close popup
+  const [openNew, setOpenNew] = React.useState<boolean>(false);
   return (
     <>
       <div className={c.boxBtn}>
@@ -85,10 +87,10 @@ const UsersTable = (props: IProps) => {
           selected={selected}
           onClickEvent={() => {
             // setOpen
-            handleOpen();
+            setOpenNew(true);
           }}
         />
-        <AddForm open={open} handleClose={handleClose} addUser={addUser} />
+        <AddForm open={openNew} handleClose={handleClose} addUser={addUser} />
 
         <UsersActionBtn
           typeIcon="Edit"
