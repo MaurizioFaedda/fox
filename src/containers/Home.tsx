@@ -118,9 +118,12 @@ const Home = (props: IProps) => {
       <CompaniesList
         show={showTable}
         selected={selected}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
         handleFocusOnClick={handleFocusOnClick}
         list={companiesList}
         deleteSelected={deleteSelected}
+        open={open}
       />
 
       {/* button users list */}
