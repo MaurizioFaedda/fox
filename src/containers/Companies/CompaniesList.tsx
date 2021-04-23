@@ -15,9 +15,8 @@ const CompaniesList = (props: IProps) => {
 
   // add companies
   const addCompanies = (item: any) => {
-    let count = companiesList.length + 1;
     const newItem = {
-      Id: count++,
+      Id: item.Id,
       Name: item.Name,
       ActivatedBy: item.ActivatedBy,
       Revenue: item.Revenue,
