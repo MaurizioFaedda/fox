@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import FormInput from "../companies/FormInput";
+import FormInput from "../FormInput";
 import { ICompanies } from "../../containers/companies/type";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -10,16 +10,8 @@ const UsersList = (props: IProps) => {
   const { show } = props;
   const [usersList, setUsersList] = useState<IUsers[]>([]);
   const [selected, setSelected] = useState<number>();
-  const [newUser, setNewUser] = useState<IUsers[]>([
-    {
-      id: 0,
-      name: "mario",
-      username: "prova",
-      age: 0,
-      birthday: "adfafa",
-    },
-  ]);
   /** Gestione stato e funzioni che permettono di fare queste operazioni */
+
   // Add users
   // Edit users
   // Assegna Company
@@ -30,21 +22,18 @@ const UsersList = (props: IProps) => {
   };
 
   // add users
-  const addUserTable = () => {
-    console.log("addUserTable", "iNSERT NEW USER");
-  };
+  const addUser = (item: any) => {
+    let IdCount = usersList.length + 1;
 
-  // TODO DA SISTEMARE
-  const addUser = () => {
     const newAdd = {
-      id: newUser[0].id,
-      name: newUser[0].name,
-      username: newUser[0].username,
-      age: newUser[0].age,
-      birthday: newUser[0].birthday,
+      id: IdCount++,
+      name: item.name,
+      username: item.username,
+      age: item.age,
+      birthday: item.birthday,
+      idCompany: item.idCompany,
     };
     setUsersList([newAdd, ...usersList]);
-    console.log(newAdd);
   };
 
   // delete users
@@ -71,7 +60,7 @@ const UsersList = (props: IProps) => {
           handleFocusOnClick={handleFocusOnClick}
           list={usersList}
           deleteSelectedUsers={deleteSelectedUsers}
-          addUser={addUserTable}
+          addUser={addUser}
         />
       )}
     </div>
@@ -79,6 +68,3 @@ const UsersList = (props: IProps) => {
 };
 
 export default UsersList;
-function setUsersList(arg0: any): any {
-  throw new Error("Function not implemented.");
-}

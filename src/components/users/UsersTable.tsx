@@ -57,7 +57,7 @@ type IProps = {
   list: any;
   handleFocusOnClick(id: number): void;
   deleteSelectedUsers(selected?: number): void;
-  addUser: Function;
+  addUser(item: any): void;
 };
 
 const UsersTable = (props: IProps) => {
