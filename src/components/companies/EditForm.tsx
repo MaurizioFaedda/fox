@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import FormInput from "../FormInput";
-import { ICompanies } from "../../containers/companies/type";
 import CustomButton from "../CustomButton";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,50 +47,15 @@ const formatDate = (date: any) => {
 };
 
 const EditForm = (props: IProps) => {
-  const {
-    open,
-    handleClose,
-    arr,
-    itemSelected,
-    addCompanies,
-    deleteSelected,
-    selected,
-  } = props;
+  const { open, handleClose, itemSelected, addCompanies } = props;
 
   // useState
-  const [newName, setNewName] = useState<string>("");
-  const [newActivatedBy, setNewActivatedBy] = useState<any>(
-    formatDate(new Date())
-  );
+  const [newName, setNewName] = useState<string>();
+  const [newActivatedBy, setNewActivatedBy] = useState<any>();
   const [countId, setCountId] = useState<number>(11);
-  const [newRevenue, setNewRevenue] = useState<any>(0);
+  const [newRevenue, setNewRevenue] = useState<any>();
 
   const c = useStyles();
-
-  // change the value of the new company
-  // if it is equal to the name of the input
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case "Name":
-        setNewName(e.target.value);
-        setNewActivatedBy(formatDate(arr[selected + 1].ActivatedBy));
-        setNewRevenue(arr[selected + 1].Revenue);
-        break;
-      case "ActivatedBy":
-        setNewName(arr[selected + 1].Name);
-        setNewActivatedBy(formatDate(e.target.value));
-        setNewRevenue(arr[selected + 1].Revenue);
-        break;
-      case "Revenue":
-        setNewName(arr[selected + 1].Name);
-        setNewActivatedBy(arr[selected + 1].ActivatedBy);
-        setNewRevenue(e.target.value);
-        break;
-      default:
-        break;
-    }
-    console.log(arr);
-  };
 
   const addNewCompany = () => {
     const newCompanies = {
@@ -106,46 +70,64 @@ const EditForm = (props: IProps) => {
     setNewRevenue(0);
   };
 
+  React.useEffect(() => {
+    if (itemSelected) {
+      setNewName(itemSelected.Name);
+      setNewActivatedBy(itemSelected.ActivatedBy);
+      setNewRevenue(itemSelected.Revenue);
+    }
+  }, [itemSelected]);
+
+  React.useEffect(() => {
+    console.log("primo mount editForm", itemSelected);
+  }, []);
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={() => handleClose()}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <div className={c.root}>
-          {itemSelected.map((item: any) => (
+      {itemSelected && (
+        <Modal
+          open={open}
+          onClose={() => handleClose()}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className={c.root}>
             <>
               <FormInput
                 type={"text"}
-                value={item.Name}
+                value={itemSelected.Name}
                 name={"Name"}
                 label={"Name"}
-                handleChange={handleChange}
+                handleChange={(e: any) => {
+                  setNewName(e.target.value);
+                }}
               />
               <FormInput
                 type={"text"}
-                value={item.ActivatedBy}
+                value={itemSelected.ActivatedBy}
                 name={"ActivatedBy"}
-                handleChange={handleChange}
+                handleChange={(e: any) => {
+                  setNewActivatedBy(formatDate(e.target.value));
+                }}
               />
               <FormInput
                 type={"number"}
-                value={item.Revenue}
+                value={itemSelected.Revenue}
                 name={"Revenue"}
                 label={"Revenue"}
-                handleChange={handleChange}
+                handleChange={(e: any) => {
+                  setNewRevenue(e.target.value);
+                }}
               />
             </>
-          ))}
-          <CustomButton
-            title={"Edit"}
-            onClickAction={() => addNewCompany()}
-            onClickClose={handleClose}
-          />
-        </div>
-      </Modal>
+
+            <CustomButton
+              title={"Edit"}
+              onClickAction={() => addNewCompany()}
+              onClickClose={handleClose}
+            />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

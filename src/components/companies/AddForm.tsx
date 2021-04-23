@@ -29,7 +29,7 @@ type IProps = {
   open: boolean;
   handleClose: Function;
   arr: any;
-  addCompanies(item: any): void;
+  onAddCompanies(item: any): void;
 };
 
 // created constant to use today's date formatted by
@@ -45,7 +45,7 @@ const formatDate = (date: any) => {
 };
 
 const AddForm = (props: IProps) => {
-  const { open, handleClose, arr, addCompanies } = props;
+  const { open, handleClose, arr, onAddCompanies } = props;
 
   // useState
   const [newName, setNewName] = useState<string>("");
@@ -85,11 +85,10 @@ const AddForm = (props: IProps) => {
       ActivatedBy: newActivatedBy,
       Revenue: newRevenue,
     };
-    addCompanies(newCompanies);
+    onAddCompanies(newCompanies);
     setNewName("");
     setNewActivatedBy(formatDate(new Date()));
     setNewRevenue(0);
-    console.log(arr);
   };
 
   return (
