@@ -26,7 +26,6 @@ const CompaniesList = (props: IProps) => {
 
   // delete functions
   const deleteSelected = (selected: number) => {
-    console.log(selected);
     const newArr = companiesList.filter((item) => {
       return companiesList.indexOf(item) + 1 !== selected;
     });
