@@ -6,10 +6,11 @@ type IProps = {
   handleChange?: any;
   type: any;
   name: string;
+  value?: any;
 };
 
 const FormInput = (props: IProps) => {
-  const { label, handleChange, type, name } = props;
+  const { label, handleChange, type, name, value } = props;
   return (
     <TextField
       type={type}
@@ -18,6 +19,7 @@ const FormInput = (props: IProps) => {
       label={label}
       name={name}
       variant="outlined"
+      value={value}
     />
   );
 };

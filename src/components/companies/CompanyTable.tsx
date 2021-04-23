@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   withStyles,
   Theme,
@@ -14,6 +14,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CompanyActionBtn from "./CompanyActionBtn";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
+import CompaniesList from "../../containers/companies/CompaniesList";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -71,11 +73,23 @@ const CompanyTable = (props: IProps) => {
 
   const c = useStyles();
 
-  // Stato locale da gestire qua tipo open popup / close popup
-  const [openNew, setOpenNew] = React.useState<boolean>(false);
+  // useState Open/Close Form
+  const [openAddForm, setOpenAddForm] = useState<boolean>(false);
+  const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+  const [itemSelected, setItemSelected] = useState<any>([]);
   const handleClose = () => {
-    setOpenNew(false);
+    setOpenAddForm(false);
+    setOpenEditForm(false);
   };
+
+  useEffect(() => {
+    setItemSelected(
+      arr.filter((item: any) => {
+        return arr.indexOf(item) + 1 === selected;
+      })
+    );
+    // console.log(itemSelected);
+  }, [selected]);
 
   return (
     <>
@@ -85,11 +99,11 @@ const CompanyTable = (props: IProps) => {
           disabled={false}
           typeIcon="Add"
           onClickEvent={() => {
-            setOpenNew(true);
+            setOpenAddForm(true);
           }}
         />
         <AddForm
-          open={openNew}
+          open={openAddForm}
           handleClose={handleClose}
           arr={arr}
           addCompanies={addCompanies}
@@ -100,8 +114,14 @@ const CompanyTable = (props: IProps) => {
           disabled={true}
           typeIcon="Edit"
           onClickEvent={() => {
-            console.log("Edit", selected);
+            setOpenEditForm(true);
           }}
+        />
+        <EditForm
+          open={openEditForm}
+          handleClose={handleClose}
+          arr={arr}
+          itemSelected={itemSelected}
         />
         <CompanyActionBtn
           selected={selected}
