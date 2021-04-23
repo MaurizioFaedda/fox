@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   withStyles,
   Theme,
@@ -15,7 +15,6 @@ import Paper from "@material-ui/core/Paper";
 import CompanyActionBtn from "./CompanyActionBtn";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
-import CompaniesList from "../../containers/companies/CompaniesList";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -29,15 +28,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
-  createStyles({
-    // root: {
-    //   "&:nth-of-type(odd)": {
-    //     backgroundColor: theme.palette.action.hover,
-    //   },
-    // },
-  })
-)(TableRow);
+const StyledTableRow = withStyles((theme: Theme) => createStyles({}))(TableRow);
 
 const useStyles = makeStyles({
   table: {
@@ -60,10 +51,12 @@ type IProps = {
   deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
   addCompanies(item: any): void;
+  itemSelected: any;
 };
 
 const CompanyTable = (props: IProps) => {
   const {
+    itemSelected,
     arr,
     selected,
     handleFocusOnClick,
@@ -76,20 +69,10 @@ const CompanyTable = (props: IProps) => {
   // useState Open/Close Form
   const [openAddForm, setOpenAddForm] = useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
-  const [itemSelected, setItemSelected] = useState<any>([]);
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
-
-  useEffect(() => {
-    setItemSelected(
-      arr.filter((item: any) => {
-        return arr.indexOf(item) + 1 === selected;
-      })
-    );
-    // console.log(itemSelected);
-  }, [selected]);
 
   return (
     <>
@@ -121,7 +104,10 @@ const CompanyTable = (props: IProps) => {
           open={openEditForm}
           handleClose={handleClose}
           arr={arr}
+          selected={selected}
           itemSelected={itemSelected}
+          addCompanies={addCompanies}
+          deleteSelected={deleteSelected}
         />
         <CompanyActionBtn
           selected={selected}

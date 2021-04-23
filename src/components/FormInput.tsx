@@ -19,7 +19,7 @@ const FormInput = (props: IProps) => {
       label={label}
       name={name}
       variant="outlined"
-      value={value}
+      defaultValue={value}
     />
   );
 };

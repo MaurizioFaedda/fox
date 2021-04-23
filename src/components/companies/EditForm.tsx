@@ -29,7 +29,10 @@ type IProps = {
   open: boolean;
   handleClose: Function;
   arr: any;
+  selected: any;
   itemSelected: any;
+  addCompanies: Function;
+  deleteSelected: Function;
 };
 
 // created constant to use today's date formatted by
@@ -45,7 +48,15 @@ const formatDate = (date: any) => {
 };
 
 const EditForm = (props: IProps) => {
-  const { open, handleClose, arr, itemSelected } = props;
+  const {
+    open,
+    handleClose,
+    arr,
+    itemSelected,
+    addCompanies,
+    deleteSelected,
+    selected,
+  } = props;
 
   // useState
   const [newName, setNewName] = useState<string>("");
@@ -63,13 +74,18 @@ const EditForm = (props: IProps) => {
     switch (e.target.name) {
       case "Name":
         setNewName(e.target.value);
+        setNewActivatedBy(formatDate(arr[selected + 1].ActivatedBy));
+        setNewRevenue(arr[selected + 1].Revenue);
         break;
       case "ActivatedBy":
+        setNewName(arr[selected + 1].Name);
         setNewActivatedBy(formatDate(e.target.value));
+        setNewRevenue(arr[selected + 1].Revenue);
         break;
       case "Revenue":
+        setNewName(arr[selected + 1].Name);
+        setNewActivatedBy(arr[selected + 1].ActivatedBy);
         setNewRevenue(e.target.value);
-
         break;
       default:
         break;
@@ -78,17 +94,16 @@ const EditForm = (props: IProps) => {
   };
 
   const addNewCompany = () => {
-    setCountId(countId + 1);
     const newCompanies = {
       Id: countId,
       Name: newName,
       ActivatedBy: newActivatedBy,
       Revenue: newRevenue,
     };
+    addCompanies(newCompanies);
     setNewName("");
     setNewActivatedBy(formatDate(new Date()));
     setNewRevenue(0);
-    console.log(arr);
   };
 
   return (
@@ -124,10 +139,9 @@ const EditForm = (props: IProps) => {
               />
             </>
           ))}
-
           <CustomButton
             title={"Edit"}
-            onClickAction={() => console.log("hello")}
+            onClickAction={() => addNewCompany()}
             onClickClose={handleClose}
           />
         </div>
