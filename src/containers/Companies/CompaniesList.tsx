@@ -26,11 +26,16 @@ const CompaniesList = (props: IProps) => {
     setCompaniesList([newItem, ...companiesList]);
   };
 
-  // const editCompanies = (item: any) => {
-
-  //   companiesList.map(obj => arr2.find(o => o.id === obj.id) || obj);
-
-  // }
+  // const editCompany = (item: any) => {
+  //   const newItem = {
+  //     Id: item.Id,
+  //     Name: item.Name,
+  //     ActivatedBy: item.ActivatedBy,
+  //     Revenue: item.Revenue,
+  //   };
+  //   let newEditItem = [...companiesList];
+  //   newEditItem[selected] = newItem;
+  // };
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -71,7 +76,7 @@ const CompaniesList = (props: IProps) => {
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
           deleteSelected={deleteSelected}
-          addCompanies={addCompanies}
+          onAddCompanies={addCompanies}
           itemSelected={itemSelected}
         />
       )}

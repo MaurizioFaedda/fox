@@ -50,7 +50,7 @@ type IProps = {
   selected?: number;
   deleteSelected(selected?: number): void;
   handleFocusOnClick(id: number): void;
-  addCompanies(item: any): void;
+  onAddCompanies(item: any): void;
   itemSelected: any;
 };
 
@@ -61,7 +61,7 @@ const CompanyTable = (props: IProps) => {
     selected,
     handleFocusOnClick,
     deleteSelected,
-    addCompanies,
+    onAddCompanies,
   } = props;
 
   const c = useStyles();
@@ -89,7 +89,7 @@ const CompanyTable = (props: IProps) => {
           open={openAddForm}
           handleClose={handleClose}
           arr={arr}
-          addCompanies={addCompanies}
+          onAddCompanies={onAddCompanies}
         />
 
         <CompanyActionBtn
@@ -105,8 +105,8 @@ const CompanyTable = (props: IProps) => {
           handleClose={handleClose}
           arr={arr}
           selected={selected}
-          itemSelected={itemSelected}
-          addCompanies={addCompanies}
+          itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+          addCompanies={onAddCompanies}
           deleteSelected={deleteSelected}
         />
         <CompanyActionBtn
