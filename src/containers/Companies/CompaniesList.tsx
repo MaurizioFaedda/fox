@@ -8,7 +8,9 @@ type IProps = {
 
 const CompaniesList = (props: IProps) => {
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
-  const [selected, setSelected] = React.useState<number>();
+  const [selected, setSelected] = React.useState<any>();
+  const [itemSelected, setItemSelected] = useState<any>([]);
+
   // const [newCompanies, setNewCompaies] = useState<ICompanies[]>([]);
 
   const { show } = props;
@@ -23,6 +25,12 @@ const CompaniesList = (props: IProps) => {
     };
     setCompaniesList([newItem, ...companiesList]);
   };
+
+  // const editCompanies = (item: any) => {
+
+  //   companiesList.map(obj => arr2.find(o => o.id === obj.id) || obj);
+
+  // }
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -47,6 +55,13 @@ const CompaniesList = (props: IProps) => {
 
     // };
   }, []);
+  useEffect(() => {
+    setItemSelected(
+      companiesList.filter((item: any) => {
+        return companiesList.indexOf(item) + 1 === selected;
+      })
+    );
+  }, [selected]);
 
   return (
     <>
@@ -57,6 +72,7 @@ const CompaniesList = (props: IProps) => {
           handleFocusOnClick={handleFocusOnClick}
           deleteSelected={deleteSelected}
           addCompanies={addCompanies}
+          itemSelected={itemSelected}
         />
       )}
     </>
