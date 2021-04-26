@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import UsersActionBtn from "./UsersActionButtons";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+import SearchFilter from "./SearchFilter";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +36,10 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
   boxBtn: {
-    float: "right",
+    width: "100%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "space-between",
   },
   selected: {
     backgroundColor: "rgba(40,0,0,0.3)",
@@ -71,15 +75,24 @@ const UsersTable = (props: IProps) => {
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
+  const [filteredList, setFilteredList] = React.useState<any>();
 
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
 
+  const changeFilter = (e: any) => {
+    console.log(e.target.value);
+  };
+
   return (
     <>
       <div className={c.boxBtn}>
+        <div className={c.boxBtn}>
+          <SearchFilter onChange={changeFilter} />
+        </div>
+
         <UsersActionBtn
           typeIcon="Add"
           disabled={false}
