@@ -13,11 +13,9 @@ const CompaniesList = (props: IProps) => {
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
 
-  // const [newCompanies, setNewCompaies] = useState<ICompanies[]>([]);
-
   const { show } = props;
 
-  // add companies
+  //adds a new company
   const addCompanies = (item: any) => {
     const newItem = {
       Id: item.Id,
@@ -28,6 +26,7 @@ const CompaniesList = (props: IProps) => {
     setCompaniesList([newItem, ...companiesList]);
   };
 
+  // edit an existing company
   const editCompany = (item: any) => {
     const newItem = {
       Id: item.Id,
@@ -39,7 +38,7 @@ const CompaniesList = (props: IProps) => {
     setSelected(0);
   };
 
-  // delete functions
+  // delete a company by id
   const deleteSelected = () => {
     const newArr = companiesList.filter((item: any) => {
       return item.Id !== itemSelected[0].Id;
@@ -72,6 +71,9 @@ const CompaniesList = (props: IProps) => {
 
     // };
   }, []);
+
+  // itemSelected takes the value of companiesList
+  // or filteredList according to the conditions
   useEffect(() => {
     if (filteredList && filteredList.length > 0) {
       setItemSelected(
@@ -86,6 +88,8 @@ const CompaniesList = (props: IProps) => {
         })
       );
   }, [selected]);
+
+  // filteredList updates when searchBar input changes
   useEffect(() => {
     setFilteredList(
       companiesList.filter((company: any) => {
@@ -93,9 +97,12 @@ const CompaniesList = (props: IProps) => {
       })
     );
   }, [filterInput]);
+
+  // The first time filteredList is equal to companilist
   useEffect(() => {
     setFilteredList(companiesList);
   }, []);
+
   return (
     <>
       {show && (
