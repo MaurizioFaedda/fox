@@ -14,6 +14,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import UsersActionBtn from "./UsersActionButtons";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
+import SearchFilter from "./SearchFilter";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -27,22 +29,17 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
-  createStyles({
-    // root: {
-    //   "&:nth-of-type(odd)": {
-    //     backgroundColor: theme.palette.action.hover,
-    //   },
-    // },
-  })
-)(TableRow);
+const StyledTableRow = withStyles((theme: Theme) => createStyles({}))(TableRow);
 
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
   boxBtn: {
-    float: "right",
+    width: "100%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "space-between",
   },
   selected: {
     backgroundColor: "rgba(40,0,0,0.3)",
@@ -57,7 +54,9 @@ type IProps = {
   list: any;
   handleFocusOnClick(id: number): void;
   deleteSelectedUsers(selected?: number): void;
-  addUser(item: any): void;
+  onAddUser(item: any): void;
+  itemSelected: any;
+  onEditUser(any: any): void;
 };
 
 const UsersTable = (props: IProps) => {
@@ -66,37 +65,66 @@ const UsersTable = (props: IProps) => {
     handleFocusOnClick,
     selected,
     deleteSelectedUsers,
-    addUser,
+    onAddUser,
+    itemSelected,
+    onEditUser,
   } = props;
+
   const c = useStyles();
 
   // Stato locale da gestire qua tipo open popup / close popup
-  const [openNew, setOpenNew] = React.useState<boolean>(false);
+  const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
+  const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
+  const [filteredList, setFilteredList] = React.useState<any>();
+
   const handleClose = () => {
-    setOpenNew(false);
+    setOpenAddForm(false);
+    setOpenEditForm(false);
+  };
+
+  const changeFilter = (e: any) => {
+    console.log(e.target.value);
   };
 
   return (
     <>
       <div className={c.boxBtn}>
+        <div className={c.boxBtn}>
+          <SearchFilter onChange={changeFilter} />
+        </div>
+
         <UsersActionBtn
           typeIcon="Add"
           disabled={false}
           selected={selected}
           onClickEvent={() => {
             // setOpen
-            setOpenNew(true);
+            setOpenAddForm(true);
           }}
         />
-        <AddForm open={openNew} handleClose={handleClose} addUser={addUser} />
+        <AddForm
+          open={openAddForm}
+          handleClose={handleClose}
+          addUser={onAddUser}
+        />
 
         <UsersActionBtn
           typeIcon="Edit"
           selected={selected}
           onClickEvent={() => {
-            console.log("Edit selected", selected);
+            setOpenEditForm(true);
           }}
         />
+
+        <EditForm
+          openForm={openEditForm}
+          onHandleClose={handleClose}
+          list={list}
+          selected={selected}
+          itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+          onEditUser={onEditUser}
+        />
+
         <UsersActionBtn
           typeIcon="Delete"
           selected={selected}
