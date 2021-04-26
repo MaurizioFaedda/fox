@@ -47,11 +47,12 @@ const useStyles = makeStyles({
 
 type IProps = {
   arr: any;
-  selected?: number;
-  deleteSelected(selected?: number): void;
-  handleFocusOnClick(id: number): void;
-  onAddCompanies(item: any): void;
   itemSelected: any;
+  selected?: number;
+  onDeleteSelected(selected?: number): void;
+  onHandleFocusOnClick(id: number): void;
+  onAddCompanies(item: any): void;
+  onEditCompany(any: any): void;
 };
 
 const CompanyTable = (props: IProps) => {
@@ -59,9 +60,10 @@ const CompanyTable = (props: IProps) => {
     itemSelected,
     arr,
     selected,
-    handleFocusOnClick,
-    deleteSelected,
+    onHandleFocusOnClick,
+    onDeleteSelected,
     onAddCompanies,
+    onEditCompany,
   } = props;
 
   const c = useStyles();
@@ -102,19 +104,18 @@ const CompanyTable = (props: IProps) => {
         />
         <EditForm
           open={openEditForm}
-          handleClose={handleClose}
+          onHandleClose={handleClose}
           arr={arr}
           selected={selected}
           itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
-          addCompanies={onAddCompanies}
-          deleteSelected={deleteSelected}
+          onEditCompany={onEditCompany}
         />
         <CompanyActionBtn
           selected={selected}
           disabled={true}
           typeIcon="Delete"
           onClickEvent={() => {
-            deleteSelected(selected);
+            onDeleteSelected(selected);
           }}
         />
       </div>
@@ -134,7 +135,7 @@ const CompanyTable = (props: IProps) => {
                 className={index + 1 === selected ? c.selected : c.notSelected}
                 key={index + 1}
                 onClick={() => {
-                  handleFocusOnClick(index + 1);
+                  onHandleFocusOnClick(index + 1);
                 }}
               >
                 <StyledTableCell component="th" scope="row">
