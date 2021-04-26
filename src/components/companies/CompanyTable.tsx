@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   withStyles,
   Theme,
@@ -15,6 +15,8 @@ import Paper from "@material-ui/core/Paper";
 import CompanyActionBtn from "./CompanyActionBtn";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+import SearchFilter from "./SearchFilter";
+import { Search } from "@material-ui/icons";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -34,8 +36,13 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  topTable: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "10px 0",
+  },
   boxBtn: {
-    float: "right",
+    display: "flex",
   },
   selected: {
     backgroundColor: "rgba(40,0,0,0.3)",
@@ -71,53 +78,74 @@ const CompanyTable = (props: IProps) => {
   // useState Open/Close Form
   const [openAddForm, setOpenAddForm] = useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+  const [filteredList, setFilteredList] = useState<any>([]);
+  const [filterInput, setFilterInput] = useState<any>();
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
 
+  const onChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  };
+
+  // useEffect(() => {
+  //   effect;
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, [input]);
+
   return (
     <>
-      <div className={c.boxBtn}>
-        <CompanyActionBtn
-          selected={selected}
-          disabled={false}
-          typeIcon="Add"
-          onClickEvent={() => {
-            setOpenAddForm(true);
-          }}
-        />
-        <AddForm
-          open={openAddForm}
-          handleClose={handleClose}
-          arr={arr}
-          onAddCompanies={onAddCompanies}
-        />
+      <div className={c.topTable}>
+        <div>
+          <SearchFilter onChangeFilter={onChangeFilter} />
+        </div>
+        <div className={c.boxBtn}>
+          <CompanyActionBtn
+            selected={selected}
+            disabled={false}
+            color="primary"
+            typeIcon="Add"
+            onClickEvent={() => {
+              setOpenAddForm(true);
+            }}
+          />
+          <AddForm
+            open={openAddForm}
+            handleClose={handleClose}
+            arr={arr}
+            onAddCompanies={onAddCompanies}
+          />
 
-        <CompanyActionBtn
-          selected={selected}
-          disabled={true}
-          typeIcon="Edit"
-          onClickEvent={() => {
-            setOpenEditForm(true);
-          }}
-        />
-        <EditForm
-          open={openEditForm}
-          onHandleClose={handleClose}
-          arr={arr}
-          selected={selected}
-          itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
-          onEditCompany={onEditCompany}
-        />
-        <CompanyActionBtn
-          selected={selected}
-          disabled={true}
-          typeIcon="Delete"
-          onClickEvent={() => {
-            onDeleteSelected(selected);
-          }}
-        />
+          <CompanyActionBtn
+            selected={selected}
+            disabled={true}
+            color="default"
+            typeIcon="Edit"
+            onClickEvent={() => {
+              setOpenEditForm(true);
+            }}
+          />
+          <EditForm
+            open={openEditForm}
+            onHandleClose={handleClose}
+            arr={arr}
+            selected={selected}
+            itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+            onEditCompany={onEditCompany}
+          />
+          <CompanyActionBtn
+            selected={selected}
+            disabled={true}
+            color="secondary"
+            typeIcon="Delete"
+            onClickEvent={() => {
+              onDeleteSelected(selected);
+            }}
+          />
+        </div>
       </div>
 
       <TableContainer component={Paper}>
