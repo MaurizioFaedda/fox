@@ -26,16 +26,16 @@ const CompaniesList = (props: IProps) => {
     setCompaniesList([newItem, ...companiesList]);
   };
 
-  // const editCompany = (item: any) => {
-  //   const newItem = {
-  //     Id: item.Id,
-  //     Name: item.Name,
-  //     ActivatedBy: item.ActivatedBy,
-  //     Revenue: item.Revenue,
-  //   };
-  //   let newEditItem = [...companiesList];
-  //   newEditItem[selected] = newItem;
-  // };
+  const editCompany = (item: any) => {
+    const newItem = {
+      Id: item.Id,
+      Name: item.Name,
+      ActivatedBy: item.ActivatedBy,
+      Revenue: item.Revenue,
+    };
+    companiesList[selected - 1] = newItem;
+    setSelected(0);
+  };
 
   // delete functions
   const deleteSelected = (selected: number) => {
@@ -74,10 +74,11 @@ const CompaniesList = (props: IProps) => {
         <CompanyTable
           arr={companiesList}
           selected={selected && selected}
-          handleFocusOnClick={handleFocusOnClick}
-          deleteSelected={deleteSelected}
+          onHandleFocusOnClick={handleFocusOnClick}
+          onDeleteSelected={deleteSelected}
           onAddCompanies={addCompanies}
           itemSelected={itemSelected}
+          onEditCompany={editCompany}
         />
       )}
     </>

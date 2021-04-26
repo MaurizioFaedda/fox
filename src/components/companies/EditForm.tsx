@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import FormInput from "../FormInput";
@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   open: boolean;
-  handleClose: Function;
+  onHandleClose: Function;
   arr: any;
   selected: any;
   itemSelected: any;
-  addCompanies: Function;
-  deleteSelected: Function;
+  onEditCompany(item: any): void;
 };
 
 // created constant to use today's date formatted by
@@ -47,7 +46,7 @@ const formatDate = (date: any) => {
 };
 
 const EditForm = (props: IProps) => {
-  const { open, handleClose, itemSelected, addCompanies } = props;
+  const { open, onHandleClose, itemSelected, onEditCompany } = props;
 
   // useState
   const [newName, setNewName] = useState<string>();
@@ -64,10 +63,11 @@ const EditForm = (props: IProps) => {
       ActivatedBy: newActivatedBy,
       Revenue: newRevenue,
     };
-    addCompanies(newCompanies);
+    onEditCompany(newCompanies);
     setNewName("");
     setNewActivatedBy(formatDate(new Date()));
     setNewRevenue(0);
+    console.log();
   };
 
   React.useEffect(() => {
@@ -75,18 +75,16 @@ const EditForm = (props: IProps) => {
       setNewName(itemSelected.Name);
       setNewActivatedBy(itemSelected.ActivatedBy);
       setNewRevenue(itemSelected.Revenue);
+      console.log(itemSelected.ActivatedBy);
     }
   }, [itemSelected]);
 
-  React.useEffect(() => {
-    console.log("primo mount editForm", itemSelected);
-  }, []);
   return (
     <div>
       {itemSelected && (
         <Modal
           open={open}
-          onClose={() => handleClose()}
+          onClose={() => onHandleClose()}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
@@ -102,8 +100,8 @@ const EditForm = (props: IProps) => {
                 }}
               />
               <FormInput
-                type={"text"}
-                value={itemSelected.ActivatedBy}
+                type={"date"}
+                value={"2017 - 05 - 24"}
                 name={"ActivatedBy"}
                 handleChange={(e: any) => {
                   setNewActivatedBy(formatDate(e.target.value));
@@ -123,7 +121,7 @@ const EditForm = (props: IProps) => {
             <CustomButton
               title={"Edit"}
               onClickAction={() => addNewCompany()}
-              onClickClose={handleClose}
+              onClickClose={onHandleClose}
             />
           </div>
         </Modal>
