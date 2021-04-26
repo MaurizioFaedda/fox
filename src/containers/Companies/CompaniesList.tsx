@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import CompanyTable from "../../components/companies/CompanyTable";
 import { ICompanies } from "./type";
 
@@ -10,6 +10,8 @@ const CompaniesList = (props: IProps) => {
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [selected, setSelected] = React.useState<any>();
   const [itemSelected, setItemSelected] = useState<any>([]);
+  const [filteredList, setFilteredList] = useState<any>([]);
+  const [filterInput, setFilterInput] = useState<any>("");
 
   // const [newCompanies, setNewCompaies] = useState<ICompanies[]>([]);
 
@@ -38,12 +40,22 @@ const CompaniesList = (props: IProps) => {
   };
 
   // delete functions
-  const deleteSelected = (selected: number) => {
-    const newArr = companiesList.filter((item) => {
-      return companiesList.indexOf(item) + 1 !== selected;
+  const deleteSelected = () => {
+    const newArr = companiesList.filter((item: any) => {
+      return item.Id !== itemSelected[0].Id;
     });
     setCompaniesList(newArr);
+    setFilteredList(
+      filteredList.filter((item: any) => {
+        return item.Id !== itemSelected[0].Id;
+      })
+    );
+
     setSelected(0);
+  };
+
+  const onChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterInput(e.target.value);
   };
 
   // focus of the row I click of the table
@@ -61,24 +73,41 @@ const CompaniesList = (props: IProps) => {
     // };
   }, []);
   useEffect(() => {
-    setItemSelected(
-      companiesList.filter((item: any) => {
-        return companiesList.indexOf(item) + 1 === selected;
+    if (filteredList && filteredList.length > 0) {
+      setItemSelected(
+        filteredList.filter((item: any) => {
+          return filteredList.indexOf(item) + 1 === selected;
+        })
+      );
+    } else
+      setItemSelected(
+        companiesList.filter((item: any) => {
+          return companiesList.indexOf(item) + 1 === selected;
+        })
+      );
+  }, [selected]);
+  useEffect(() => {
+    setFilteredList(
+      companiesList.filter((company: any) => {
+        return company.Name.toLowerCase().includes(filterInput.toLowerCase());
       })
     );
-  }, [selected]);
-
+  }, [filterInput]);
+  useEffect(() => {
+    setFilteredList(companiesList);
+  }, []);
   return (
     <>
       {show && (
         <CompanyTable
-          arr={companiesList}
+          arr={filteredList.length > 0 ? filteredList : companiesList}
           selected={selected && selected}
           onHandleFocusOnClick={handleFocusOnClick}
           onDeleteSelected={deleteSelected}
           onAddCompanies={addCompanies}
           itemSelected={itemSelected}
           onEditCompany={editCompany}
+          onChangeFilter={onChangeFilter}
         />
       )}
     </>
