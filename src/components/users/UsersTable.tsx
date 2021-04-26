@@ -52,10 +52,11 @@ const useStyles = makeStyles({
 type IProps = {
   selected?: number;
   list: any;
-  handleFocusOnClick(id: number): void;
-  deleteSelectedUsers(selected?: number): void;
-  onAddUser(item: any): void;
   itemSelected: any;
+  onChangeFilter: Function;
+  deleteSelectedUsers(selected?: number): void;
+  handleFocusOnClick(id: number): void;
+  onAddUser(item: any): void;
   onEditUser(any: any): void;
 };
 
@@ -68,6 +69,7 @@ const UsersTable = (props: IProps) => {
     onAddUser,
     itemSelected,
     onEditUser,
+    onChangeFilter,
   } = props;
 
   const c = useStyles();
@@ -83,33 +85,18 @@ const UsersTable = (props: IProps) => {
     setOpenEditForm(false);
   };
 
-  const changeFilter = (e: any) => {
-    // console.log(e.target.value);
-
-    setFilterInput(e.target.value);
-    // console.log(filterInput);
-    let newArr = ["prova", "prova2"];
-
-    setFilteredList(
-      list.filter((item: any) => {
-        return item.name.toLowerCase() === filterInput.toLowerCase();
-      })
-    );
-
-    console.log(filteredList);
-  };
-
   return (
     <>
       <div className={c.boxBtn}>
         <div className={c.boxBtn}>
-          <SearchFilter onChange={changeFilter} />
+          <SearchFilter onChangeFilter={onChangeFilter} />
         </div>
 
         <UsersActionBtn
           typeIcon="Add"
           disabled={false}
           selected={selected}
+          color="primary"
           onClickEvent={() => {
             // setOpen
             setOpenAddForm(true);
@@ -124,6 +111,7 @@ const UsersTable = (props: IProps) => {
         <UsersActionBtn
           typeIcon="Edit"
           selected={selected}
+          color="default"
           onClickEvent={() => {
             setOpenEditForm(true);
           }}
@@ -141,6 +129,7 @@ const UsersTable = (props: IProps) => {
         <UsersActionBtn
           typeIcon="Delete"
           selected={selected}
+          color="secondary"
           onClickEvent={() => {
             deleteSelectedUsers(selected);
           }}

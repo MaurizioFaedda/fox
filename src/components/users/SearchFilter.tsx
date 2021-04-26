@@ -32,20 +32,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type IProps = {
-  onChange?: any;
+  onChangeFilter?: any;
 };
 
 function SearchFilter(props: IProps) {
-  const { onChange } = props;
+  const { onChangeFilter } = props;
   const classes = useStyles();
 
   return (
-    <Paper component="form" className={classes.root}>
+    <Paper className={classes.root}>
       <InputBase
         className={classes.input}
+        onChange={onChangeFilter}
         placeholder="Search filter"
         inputProps={{ "aria-label": "search filter" }}
-        onChange={onChange}
       />
       <IconButton
         type="submit"

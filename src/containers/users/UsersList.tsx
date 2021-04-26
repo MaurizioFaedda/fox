@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
 import { IUsers } from "./type";
 
@@ -11,6 +11,8 @@ const UsersList = (props: IProps) => {
   const [usersList, setUsersList] = useState<IUsers[]>([]);
   const [selected, setSelected] = useState<any>();
   const [itemSelected, setItemSelected] = useState<any>([]);
+  const [filteredList, setFilteredList] = useState<any>([]);
+  const [filterInput, setFilterInput] = useState<any>("");
 
   /** Gestione stato e funzioni che permettono di fare queste operazioni */
 
@@ -23,10 +25,13 @@ const UsersList = (props: IProps) => {
 
   // add users
   const addUser = (item: any) => {
-    let IdCount = usersList.length + 1;
+    // let IdCount = usersList.length + 1;
+    const max = 1999;
+    const min = 1000;
+    let idCount = Math.floor(Math.random() * (max - min)) + min;
 
     const newAdd = {
-      id: IdCount++,
+      id: idCount,
       name: item.name,
       username: item.username,
       age: item.age,
@@ -37,15 +42,20 @@ const UsersList = (props: IProps) => {
   };
 
   // delete users
-  const deleteSelectedUsers = (selected: number) => {
-    console.log(selected);
+  const deleteSelectedUsers = () => {
     const newArr = usersList.filter((item) => {
-      return usersList.indexOf(item) + 1 !== selected;
+      return item.id !== itemSelected[0].id;
     });
     setUsersList(newArr);
+    setFilteredList(
+      filteredList.filter((item: any) => {
+        return item.id !== itemSelected[0].id;
+      })
+    );
     setSelected(0);
   };
 
+  // edit users
   const editUser = (item: any) => {
     const newItem = {
       id: item.id,
@@ -59,6 +69,10 @@ const UsersList = (props: IProps) => {
     setSelected(0);
   };
 
+  const onChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterInput(e.target.value);
+  };
+
   // API call Users
   useEffect(() => {
     fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
@@ -67,24 +81,51 @@ const UsersList = (props: IProps) => {
   }, []);
 
   useEffect(() => {
-    setItemSelected(
-      usersList.filter((item: any) => {
-        return usersList.indexOf(item) + 1 === selected;
+    if (filteredList && filteredList.length > 0) {
+      setItemSelected(
+        filteredList.filter((item: any) => {
+          return filteredList.indexOf(item) + 1 === selected;
+        })
+      );
+    } else
+      setItemSelected(
+        usersList.filter((item: any) => {
+          return usersList.indexOf(item) + 1 === selected;
+        })
+      );
+  }, [selected]);
+
+  useEffect(() => {
+    let filterID: number | null = null;
+    filterID = parseInt(filterInput);
+
+    setSelected(0);
+    setFilteredList(
+      usersList.filter((user: IUsers) => {
+        return (
+          user.name.toLowerCase().includes(filterInput.toLowerCase()) ||
+          (filterID && user.id === filterID)
+        );
       })
     );
-  }, [selected]);
+  }, [filterInput]);
+
+  // useEffect(() => {
+  //   setFilteredList(usersList);
+  // }, []);
 
   return (
     <div>
       {show && (
         <UsersTable
+          list={filteredList.length > 0 ? filteredList : usersList}
           selected={selected && selected}
           handleFocusOnClick={handleFocusOnClick}
-          list={usersList}
           deleteSelectedUsers={deleteSelectedUsers}
           onAddUser={addUser}
           itemSelected={itemSelected}
           onEditUser={editUser}
+          onChangeFilter={onChangeFilter}
         />
       )}
     </div>
