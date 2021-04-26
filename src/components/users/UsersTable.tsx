@@ -75,7 +75,8 @@ const UsersTable = (props: IProps) => {
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
-  const [filteredList, setFilteredList] = React.useState<any>();
+  const [filteredList, setFilteredList] = React.useState<any>([]);
+  const [filterInput, setFilterInput] = React.useState<string>("");
 
   const handleClose = () => {
     setOpenAddForm(false);
@@ -83,7 +84,19 @@ const UsersTable = (props: IProps) => {
   };
 
   const changeFilter = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
+
+    setFilterInput(e.target.value);
+    // console.log(filterInput);
+    let newArr = ["prova", "prova2"];
+
+    setFilteredList(
+      list.filter((item: any) => {
+        return item.name.toLowerCase() === filterInput.toLowerCase();
+      })
+    );
+
+    console.log(filteredList);
   };
 
   return (
