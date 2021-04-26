@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+    },
+  })
+);
 
 type IProps = {
   typeIcon: any;
   disabled?: boolean;
   onClickEvent: Function;
   selected?: number;
+  color: any;
 };
 
 const UsersActionBtn = (props: IProps) => {
-  const { typeIcon, disabled = true, onClickEvent, selected } = props;
+  const { typeIcon, disabled = true, onClickEvent, selected, color } = props;
   const [title, setTitle] = useState<string>("");
+
+  const c = useStyles();
+
   useEffect(() => {
     switch (typeIcon) {
       case "Delete":
@@ -32,13 +43,18 @@ const UsersActionBtn = (props: IProps) => {
         break;
     }
   }, []);
+
   return (
-    <button
-      disabled={selected ? false : disabled}
-      onClick={() => onClickEvent()}
-    >
-      {title}
-    </button>
+    <div className={c.root}>
+      <Button
+        disabled={selected ? false : disabled}
+        onClick={() => onClickEvent()}
+        variant="contained"
+        color={color}
+      >
+        {title}
+      </Button>
+    </div>
   );
 };
 

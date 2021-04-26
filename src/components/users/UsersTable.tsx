@@ -52,10 +52,11 @@ const useStyles = makeStyles({
 type IProps = {
   selected?: number;
   list: any;
-  handleFocusOnClick(id: number): void;
-  deleteSelectedUsers(selected?: number): void;
-  onAddUser(item: any): void;
   itemSelected: any;
+  onChangeFilter: Function;
+  deleteSelectedUsers(selected?: number): void;
+  handleFocusOnClick(id: number): void;
+  onAddUser(item: any): void;
   onEditUser(any: any): void;
 };
 
@@ -68,6 +69,7 @@ const UsersTable = (props: IProps) => {
     onAddUser,
     itemSelected,
     onEditUser,
+    onChangeFilter,
   } = props;
 
   const c = useStyles();
@@ -75,28 +77,26 @@ const UsersTable = (props: IProps) => {
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
-  const [filteredList, setFilteredList] = React.useState<any>();
+  const [filteredList, setFilteredList] = React.useState<any>([]);
+  const [filterInput, setFilterInput] = React.useState<string>("");
 
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
 
-  const changeFilter = (e: any) => {
-    console.log(e.target.value);
-  };
-
   return (
     <>
       <div className={c.boxBtn}>
         <div className={c.boxBtn}>
-          <SearchFilter onChange={changeFilter} />
+          <SearchFilter onChangeFilter={onChangeFilter} />
         </div>
 
         <UsersActionBtn
           typeIcon="Add"
           disabled={false}
           selected={selected}
+          color="primary"
           onClickEvent={() => {
             // setOpen
             setOpenAddForm(true);
@@ -111,6 +111,7 @@ const UsersTable = (props: IProps) => {
         <UsersActionBtn
           typeIcon="Edit"
           selected={selected}
+          color="default"
           onClickEvent={() => {
             setOpenEditForm(true);
           }}
@@ -128,6 +129,7 @@ const UsersTable = (props: IProps) => {
         <UsersActionBtn
           typeIcon="Delete"
           selected={selected}
+          color="secondary"
           onClickEvent={() => {
             deleteSelectedUsers(selected);
           }}
