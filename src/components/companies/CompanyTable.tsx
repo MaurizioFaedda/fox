@@ -16,7 +16,6 @@ import CompanyActionBtn from "./CompanyActionBtn";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import SearchFilter from "./SearchFilter";
-import { Search } from "@material-ui/icons";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
