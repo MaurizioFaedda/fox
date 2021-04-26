@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   withStyles,
   Theme,
@@ -50,12 +50,16 @@ const useStyles = makeStyles({
   notSelected: {
     backgroundColor: "unset",
   },
+  hidden: {
+    display: "none",
+  },
 });
 
 type IProps = {
   arr: any;
   itemSelected: any;
   selected?: number;
+  onChangeFilter: Function;
   onDeleteSelected(selected?: number): void;
   onHandleFocusOnClick(id: number): void;
   onAddCompanies(item: any): void;
@@ -64,6 +68,7 @@ type IProps = {
 
 const CompanyTable = (props: IProps) => {
   const {
+    onChangeFilter,
     itemSelected,
     arr,
     selected,
@@ -78,23 +83,11 @@ const CompanyTable = (props: IProps) => {
   // useState Open/Close Form
   const [openAddForm, setOpenAddForm] = useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
-  const [filteredList, setFilteredList] = useState<any>([]);
-  const [filterInput, setFilterInput] = useState<any>();
+
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
-
-  const onChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-
-  // useEffect(() => {
-  //   effect;
-  //   return () => {
-  //     cleanup;
-  //   };
-  // }, [input]);
 
   return (
     <>
