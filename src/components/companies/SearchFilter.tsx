@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       width: 400,
     },
+    widthOnclick: {
+      maxWidth: 400,
+    },
     input: {
       marginLeft: theme.spacing(1),
       flex: 1,
@@ -32,10 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   onChangeFilter?: any;
+  placeholder: string;
+  filterInput: string;
 };
 
 const SearchFilter = (props: IProps) => {
-  const { onChangeFilter } = props;
+  const [openInput, setOpenIput] = useState<boolean>(false);
+  const { onChangeFilter, placeholder, filterInput } = props;
   const classes = useStyles();
 
   return (
@@ -43,7 +49,8 @@ const SearchFilter = (props: IProps) => {
       <InputBase
         className={classes.input}
         onChange={onChangeFilter}
-        // placeholder={placeholders}
+        placeholder={placeholder}
+        defaultValue={filterInput}
         // inputProps={{ "aria-label": "search google maps" }}
       />
       <Divider className={classes.divider} orientation="vertical" />
@@ -51,6 +58,7 @@ const SearchFilter = (props: IProps) => {
         color="primary"
         className={classes.iconButton}
         aria-label="directions"
+        onClick={() => setOpenIput(true)}
       >
         <SearchIcon />
       </IconButton>

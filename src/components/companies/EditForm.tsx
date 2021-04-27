@@ -42,7 +42,7 @@ const formatDate = (date: any) => {
     year = d.getFullYear();
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
-  return [day, month, year].join("/");
+  return [year, month, day].join("-");
 };
 
 const EditForm = (props: IProps) => {
@@ -67,7 +67,6 @@ const EditForm = (props: IProps) => {
     setNewName("");
     setNewActivatedBy(formatDate(new Date()));
     setNewRevenue(0);
-    console.log();
   };
 
   React.useEffect(() => {
@@ -75,7 +74,6 @@ const EditForm = (props: IProps) => {
       setNewName(itemSelected.Name);
       setNewActivatedBy(itemSelected.ActivatedBy);
       setNewRevenue(itemSelected.Revenue);
-      console.log(itemSelected.ActivatedBy);
     }
   }, [itemSelected]);
 
@@ -101,7 +99,7 @@ const EditForm = (props: IProps) => {
               />
               <FormInput
                 type={"date"}
-                value={"2017 - 05 - 24"}
+                value={formatDate(itemSelected.ActivatedBy)}
                 name={"ActivatedBy"}
                 handleChange={(e: any) => {
                   setNewActivatedBy(formatDate(e.target.value));

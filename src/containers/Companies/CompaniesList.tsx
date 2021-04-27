@@ -8,7 +8,7 @@ type IProps = {
 
 const CompaniesList = (props: IProps) => {
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
-  const [selected, setSelected] = React.useState<any>();
+  const [selected, setSelected] = useState<any>();
   const [itemSelected, setItemSelected] = useState<any>([]);
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
@@ -62,6 +62,39 @@ const CompaniesList = (props: IProps) => {
     setSelected(index);
   };
 
+  const compareObjects = (object1: any, object2: any, key: any) => {
+    const obj1 = object1[key].toUpperCase();
+    const obj2 = object2[key].toUpperCase();
+
+    if (obj1 < obj2) {
+      return -1;
+    }
+    if (obj1 > obj2) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const getSortByName = (check: boolean) => {
+    if (filteredList.length > 0) {
+      setFilteredList(
+        filteredList.sort((company1: any, company2: any) =>
+          check
+            ? compareObjects(company1, company2, "Name")
+            : compareObjects(company2, company1, "Name")
+        )
+      );
+    } else {
+      setCompaniesList(
+        companiesList.sort((company1: any, company2: any) =>
+          check
+            ? compareObjects(company1, company2, "Name")
+            : compareObjects(company2, company1, "Name")
+        )
+      );
+    }
+  };
+
   useEffect(() => {
     fetch(
       `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
@@ -91,17 +124,19 @@ const CompaniesList = (props: IProps) => {
 
   // filteredList updates when searchBar input changes
   useEffect(() => {
+    let filterRevenue: number | null = null;
+    filterRevenue = parseInt(filterInput);
+
     setFilteredList(
-      companiesList.filter((company: any) => {
-        return company.Name.toLowerCase().includes(filterInput.toLowerCase());
+      companiesList.filter((company: ICompanies) => {
+        return (
+          company.Name.toLowerCase().includes(filterInput.toLowerCase()) ||
+          (filterRevenue && company.Revenue === filterRevenue)
+        );
       })
     );
+    setSelected(0);
   }, [filterInput]);
-
-  // The first time filteredList is equal to companilist
-  useEffect(() => {
-    setFilteredList(companiesList);
-  }, []);
 
   return (
     <>
@@ -115,6 +150,8 @@ const CompaniesList = (props: IProps) => {
           itemSelected={itemSelected}
           onEditCompany={editCompany}
           onChangeFilter={onChangeFilter}
+          filterInput={filterInput}
+          getSortByName={getSortByName}
         />
       )}
     </>
