@@ -6,7 +6,7 @@ import {
   Modal,
   Theme,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
 import FormInput from "../FormInput";
 
@@ -35,50 +35,27 @@ const useStyles = makeStyles((theme: Theme) =>
 type IProps = {
   openForm: boolean;
   onHandleClose: Function;
-  itemSelected: any;
+  itemSelected?: any;
   userList: any;
+  companiesCheckbox?: any;
 };
 
 const JoinForm = (props: IProps) => {
-  const { openForm, onHandleClose, itemSelected, userList } = props;
+  const {
+    openForm,
+    onHandleClose,
+    itemSelected,
+    userList,
+    companiesCheckbox,
+  } = props;
 
-  // const [newName, setNewName] = useState<string>();
-  // const [newUsername, setNewUsername] = useState<string>();
-  // const [newAge, setNewAge] = useState<number>();
-  // const [newBirthday, setNewBirthday] = useState<any>(formatDate(new Date()));
-  // const [newId, setNewId] = useState<number>();
   const [newIdCompany, setNewIdCompany] = useState<number>();
 
   const c = useStyles();
 
-  //   const editNewUser = () => {
-  //     const newUser = {
-  //       // name: newName,
-  //       // username: newUsername,
-  //       // age: newAge,
-  //       // birthday: newBirthday,
-  //       // id: newId,
-  //       idCompany: newIdCompany,
-  //     };
-  //   onEditUser(newUser);
-  //   setNewName("");
-  //   setNewUsername("");
-  //   setNewAge(0);
-  //   setNewBirthday(formatDate(new Date()));
-  //   setNewId(0);
-  //   setNewIdCompany(0);
-  // };
-
-  // useEffect(() => {
-  //   if (itemSelected) {
-  //     setNewName(itemSelected.name);
-  //     setNewUsername(itemSelected.username);
-  //     setNewAge(itemSelected.age);
-  //     setNewBirthday(itemSelected.birthday);
-  //     setNewId(itemSelected.id);
-  //     setNewIdCompany(itemSelected.idCompany);
-  //   }
-  // }, [itemSelected]);
+  //   useEffect(() => {
+  //     console.log(itemSelected?.idCompany, "prova");
+  //   }, [itemSelected]);
 
   return (
     <div>
@@ -91,18 +68,20 @@ const JoinForm = (props: IProps) => {
         >
           <div className={c.root}>
             <h3>Select companies to join theyr ID</h3>
-            {userList.map((e: any) => {
+            {companiesCheckbox.map((e: any, index: number) => {
               return (
                 <FormControlLabel
+                  key={index}
                   control={
                     <Checkbox
                       color="primary"
-                      //   checked={state.checkedA}
-                      //   onChange={handleChange}
+                      checked={
+                        itemSelected.idCompany.includes(e.Id) ? true : false
+                      }
                       name="checkedA"
                     />
                   }
-                  label="Secondary"
+                  label={e.Name}
                 />
               );
             })}

@@ -1,16 +1,18 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
+import { ICompanies } from "../companies/type";
 import { IUsers } from "./type";
 
 type IProps = {
   show: Boolean;
+  companiesCheckbox?: any;
 };
 
 const UsersList = (props: IProps) => {
-  const { show } = props;
+  const { show, companiesCheckbox } = props;
   const [usersList, setUsersList] = useState<IUsers[]>([]);
   const [selected, setSelected] = useState<any>();
-  const [itemSelected, setItemSelected] = useState<any>([]);
+  const [itemSelected, setItemSelected] = useState<IUsers[]>([]);
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
 
@@ -168,6 +170,7 @@ const UsersList = (props: IProps) => {
           onEditUser={editUser}
           onChangeFilter={onChangeFilter}
           onGetSortBy={getSortBy}
+          companiesCheckbox={companiesCheckbox}
         />
       )}
     </div>

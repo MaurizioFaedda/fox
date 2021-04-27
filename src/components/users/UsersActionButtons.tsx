@@ -19,6 +19,7 @@ type IProps = {
   selected?: number;
   color: any;
   title: string;
+  className?: any;
 };
 
 const UsersActionBtn = (props: IProps) => {
@@ -29,6 +30,7 @@ const UsersActionBtn = (props: IProps) => {
     selected,
     color,
     title,
+    className,
   } = props;
   // const [title, setTitle] = useState<string>("");
 
@@ -37,6 +39,7 @@ const UsersActionBtn = (props: IProps) => {
   return (
     <div className={c.root}>
       <Button
+        className={className && className}
         disabled={selected ? false : disabled}
         onClick={() => onClickEvent()}
         variant="contained"
