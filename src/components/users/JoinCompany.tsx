@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 25,
       borderRadius: 4,
       backgroundColor: "#fff",
+      overflowY: "scroll",
+      height: 500,
       "& > *": {
         margin: theme.spacing(1),
         width: "25ch",
@@ -88,17 +90,22 @@ const JoinForm = (props: IProps) => {
           aria-describedby="simple-modal-description"
         >
           <div className={c.root}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="primary"
-                  //   checked={state.checkedA}
-                  //   onChange={handleChange}
-                  name="checkedA"
+            <h3>Select companies to join theyr ID</h3>
+            {userList.map((e: any) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      //   checked={state.checkedA}
+                      //   onChange={handleChange}
+                      name="checkedA"
+                    />
+                  }
+                  label="Secondary"
                 />
-              }
-              label="Secondary"
-            />
+              );
+            })}
           </div>
         </Modal>
       )}
