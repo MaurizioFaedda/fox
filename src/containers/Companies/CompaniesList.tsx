@@ -4,16 +4,17 @@ import { ICompanies } from "./type";
 
 type IProps = {
   show: Boolean;
+  firstCompaniesList?: any;
 };
 
 const CompaniesList = (props: IProps) => {
+  const { show, firstCompaniesList } = props;
+
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [selected, setSelected] = useState<any>();
   const [itemSelected, setItemSelected] = useState<any>([]);
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
-
-  const { show } = props;
 
   //adds a new company
   const addCompanies = (item: any) => {
@@ -102,18 +103,11 @@ const CompaniesList = (props: IProps) => {
     }
   };
 
-  useEffect(() => {
-    fetch(
-      `https://my-json-server.typicode.com/MaurizioFaedda/companies-json/db`
-    )
-      .then((response) => response.json())
-      .then((json) => setCompaniesList(json["companies"]));
-
-    // };
-  }, []);
-
   // itemSelected takes the value of companiesList
   // or filteredList according to the conditions
+
+  // call array
+
   useEffect(() => {
     if (filteredList && filteredList.length > 0) {
       setItemSelected(
@@ -144,6 +138,10 @@ const CompaniesList = (props: IProps) => {
     );
     setSelected(0);
   }, [filterInput]);
+
+  useEffect(() => {
+    setCompaniesList(firstCompaniesList);
+  }, []);
 
   return (
     <>

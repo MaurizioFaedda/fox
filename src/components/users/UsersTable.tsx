@@ -19,7 +19,25 @@ import SearchFilter from "./SearchFilter";
 import { Card, CardContent, IconButton } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import JoinForm from "./JoinCompany";
+import JoinForm from "./JoinForm";
+import { createMuiTheme } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: "#757ce8",
+      main: "#3f50b5",
+      dark: "#002884",
+      contrastText: "#fff",
+    },
+    secondary: {
+      light: "#ff7961",
+      main: "#f44336",
+      dark: "#ba000d",
+      contrastText: "#000",
+    },
+  },
+});
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +81,9 @@ const useStyles = makeStyles({
   ml20: {
     marginLeft: 20,
   },
+  bgColor: {
+    backgroundColor: "#757ce8",
+  },
 });
 
 type IProps = {
@@ -75,6 +96,7 @@ type IProps = {
   onAddUser(item: any): void;
   onEditUser(any: any): void;
   onGetSortBy: Function;
+  companiesCheckbox?: any;
 };
 
 const UsersTable = (props: IProps) => {
@@ -88,10 +110,11 @@ const UsersTable = (props: IProps) => {
     onEditUser,
     onChangeFilter,
     onGetSortBy,
+    companiesCheckbox,
   } = props;
 
   const c = useStyles();
-
+  const t = theme;
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
@@ -171,6 +194,7 @@ const UsersTable = (props: IProps) => {
             openForm={openJoinForm}
             onHandleClose={handleClose}
             userList={list}
+            companiesCheckbox={companiesCheckbox}
             // selected={selected}
             itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
           />
@@ -178,7 +202,8 @@ const UsersTable = (props: IProps) => {
           <UsersActionBtn
             typeIcon="Join Company"
             selected={selected}
-            color="default"
+            className={c.bgColor}
+            color="primary"
             onClickEvent={() => {
               setOpenJoinForm(true);
             }}
