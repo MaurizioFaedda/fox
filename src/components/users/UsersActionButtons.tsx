@@ -18,31 +18,21 @@ type IProps = {
   onClickEvent: Function;
   selected?: number;
   color: any;
+  title: string;
 };
 
 const UsersActionBtn = (props: IProps) => {
-  const { typeIcon, disabled = true, onClickEvent, selected, color } = props;
-  const [title, setTitle] = useState<string>("");
+  const {
+    typeIcon,
+    disabled = true,
+    onClickEvent,
+    selected,
+    color,
+    title,
+  } = props;
+  // const [title, setTitle] = useState<string>("");
 
   const c = useStyles();
-
-  useEffect(() => {
-    switch (typeIcon) {
-      case "Delete":
-        setTitle("Delete");
-        break;
-      case "Add":
-        setTitle("Add");
-
-        break;
-      case "Edit":
-        setTitle("Edit");
-
-        break;
-      default:
-        break;
-    }
-  }, []);
 
   return (
     <div className={c.root}>

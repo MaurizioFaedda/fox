@@ -19,6 +19,7 @@ import SearchFilter from "./SearchFilter";
 import { Card, CardContent, IconButton } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import JoinForm from "./JoinCompany";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -94,6 +95,7 @@ const UsersTable = (props: IProps) => {
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
+  const [openJoinForm, setOpenJoinForm] = useState<boolean>(false);
   // const [filteredList, setFilteredList] = React.useState<any>([]);
   // const [filterInput, setFilterInput] = React.useState<string>("");
   const [filterName, setFilterName] = useState<boolean>(false);
@@ -106,6 +108,7 @@ const UsersTable = (props: IProps) => {
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
+    setOpenJoinForm(false);
   };
 
   return (
@@ -127,6 +130,7 @@ const UsersTable = (props: IProps) => {
               // setOpen
               setOpenAddForm(true);
             }}
+            title="Add"
           />
           <AddForm
             open={openAddForm}
@@ -141,6 +145,7 @@ const UsersTable = (props: IProps) => {
             onClickEvent={() => {
               setOpenEditForm(true);
             }}
+            title="Edit"
           />
 
           <EditForm
@@ -159,6 +164,25 @@ const UsersTable = (props: IProps) => {
             onClickEvent={() => {
               deleteSelectedUsers(selected);
             }}
+            title="Delete"
+          />
+
+          <JoinForm
+            openForm={openJoinForm}
+            onHandleClose={handleClose}
+            userList={list}
+            // selected={selected}
+            itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+          />
+
+          <UsersActionBtn
+            typeIcon="Join Company"
+            selected={selected}
+            color="default"
+            onClickEvent={() => {
+              setOpenJoinForm(true);
+            }}
+            title="Join Company"
           />
         </div>
       </div>
