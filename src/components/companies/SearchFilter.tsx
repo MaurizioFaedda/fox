@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,10 +11,13 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "2px 4px",
       display: "flex",
       alignItems: "center",
-      width: 400,
+      width: 50,
     },
     widthOnclick: {
-      maxWidth: 400,
+      padding: "2px 4px",
+      display: "flex",
+      alignItems: "center",
+      width: 280,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -40,25 +40,28 @@ type IProps = {
 };
 
 const SearchFilter = (props: IProps) => {
-  const [openInput, setOpenIput] = useState<boolean>(false);
+  const [openInput, setOpenInput] = useState<boolean>(false);
   const { onChangeFilter, placeholder, filterInput } = props;
-  const classes = useStyles();
+  const c = useStyles();
 
   return (
-    <Paper component="form" className={classes.root}>
+    <Paper
+      component="form"
+      className={`${openInput ? c.widthOnclick : c.root}`}
+      // className={c.widthOnclick}
+    >
       <InputBase
-        className={classes.input}
+        className={c.input}
         onChange={onChangeFilter}
         placeholder={placeholder}
         defaultValue={filterInput}
         // inputProps={{ "aria-label": "search google maps" }}
       />
-      <Divider className={classes.divider} orientation="vertical" />
       <IconButton
         color="primary"
-        className={classes.iconButton}
+        className={c.iconButton}
         aria-label="directions"
-        onClick={() => setOpenIput(true)}
+        onClick={() => setOpenInput(!openInput ? true : false)}
       >
         <SearchIcon />
       </IconButton>
