@@ -16,6 +16,9 @@ import CompanyActionBtn from "./CompanyActionBtn";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import SearchFilter from "./SearchFilter";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +55,10 @@ const useStyles = makeStyles({
   hidden: {
     display: "none",
   },
+  myIconBtn: {
+    margin: "6px",
+    color: "#fff",
+  },
 });
 
 type IProps = {
@@ -59,6 +66,8 @@ type IProps = {
   itemSelected: any;
   selected?: number;
   onChangeFilter: Function;
+  filterInput: string;
+  getSortByName: Function;
   onDeleteSelected(selected?: number): void;
   onHandleFocusOnClick(id: number): void;
   onAddCompanies(item: any): void;
@@ -75,6 +84,8 @@ const CompanyTable = (props: IProps) => {
     onDeleteSelected,
     onAddCompanies,
     onEditCompany,
+    filterInput,
+    getSortByName,
   } = props;
 
   const c = useStyles();
@@ -82,18 +93,44 @@ const CompanyTable = (props: IProps) => {
   // useState Open/Close Form
   const [openAddForm, setOpenAddForm] = useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+  const [filterName, setFilterName] = useState<boolean>(false);
+  const [filterDate, setFilterDate] = useState<boolean>(false);
+  const [filterRevenue, setFilterRevenue] = useState<boolean>(false);
+  // const [getListFilter, setGetListFilter] = useState<any>(arr);
 
   const handleClose = () => {
     setOpenAddForm(false);
     setOpenEditForm(false);
   };
 
+  // created constant to use today's date formatted by
+  // default for the ActivedBy attribute
+  const formatDate = (date: any) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+    return [day, month, year].join("/");
+  };
+
   return (
     <>
       <div className={c.topTable}>
         <div>
-          <SearchFilter onChangeFilter={onChangeFilter} />
+          <SearchFilter
+            placeholder="Search by Name or Revenue"
+            onChangeFilter={onChangeFilter}
+            filterInput={filterInput}
+          />
+          <div>
+            {arr.length} Result{arr.length > 1 ? "s" : ""}
+          </div>
+          <button onClick={() => getSortByName()}>Order</button>
         </div>
+
+        {/* action btn Section - add - edit - delete */}
         <div className={c.boxBtn}>
           <CompanyActionBtn
             selected={selected}
@@ -140,13 +177,50 @@ const CompanyTable = (props: IProps) => {
         </div>
       </div>
 
+      {/* Table section  */}
       <TableContainer component={Paper}>
         <Table className={c.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right">Activated By</StyledTableCell>
-              <StyledTableCell align="right">Revenue</StyledTableCell>
+              <StyledTableCell>
+                Name
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterName(filterName ? false : true);
+                    getSortByName(filterName);
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                Activated By
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => setFilterDate(filterDate ? false : true)}
+                >
+                  {filterDate && <ArrowDownwardIcon fontSize="inherit" />}
+                  {!filterDate && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                Revenue
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => setFilterRevenue(filterRevenue ? false : true)}
+                >
+                  {filterRevenue && <ArrowDownwardIcon fontSize="inherit" />}
+                  {!filterRevenue && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -162,7 +236,7 @@ const CompanyTable = (props: IProps) => {
                   {item.Name}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {item.ActivatedBy}
+                  {formatDate(item.ActivatedBy)}
                 </StyledTableCell>
                 <StyledTableCell align="right">{item.Revenue}</StyledTableCell>
               </StyledTableRow>
