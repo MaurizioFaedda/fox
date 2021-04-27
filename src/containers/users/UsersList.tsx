@@ -15,6 +15,7 @@ const UsersList = (props: IProps) => {
   const [itemSelected, setItemSelected] = useState<IUsers[]>([]);
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
+  const [idCompanyList, setIdCompanyList] = useState<number[]>([]);
 
   /** Gestione stato e funzioni che permettono di fare queste operazioni */
 
@@ -73,6 +74,16 @@ const UsersList = (props: IProps) => {
 
   const onChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterInput(e.target.value);
+  };
+
+  //join id company function
+  const editIdCompany = (arr: number[]) => {
+    // let _idCompany: any = arr;
+    // setIdCompanyList([...itemSelected.idCompany, arr]);
+    // setUsersList(
+    //   [...usersList[itemSelected].idCompany, idCompanyList]
+    // )
+    console.log("prova");
   };
 
   // SORTING FUNCTIONS
@@ -171,6 +182,7 @@ const UsersList = (props: IProps) => {
           onChangeFilter={onChangeFilter}
           onGetSortBy={getSortBy}
           companiesCheckbox={companiesCheckbox}
+          editIdCompany={editIdCompany}
         />
       )}
     </div>

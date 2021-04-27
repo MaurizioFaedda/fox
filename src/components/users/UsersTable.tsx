@@ -97,6 +97,7 @@ type IProps = {
   onEditUser(any: any): void;
   onGetSortBy: Function;
   companiesCheckbox?: any;
+  editIdCompany: Function;
 };
 
 const UsersTable = (props: IProps) => {
@@ -111,6 +112,7 @@ const UsersTable = (props: IProps) => {
     onChangeFilter,
     onGetSortBy,
     companiesCheckbox,
+    editIdCompany,
   } = props;
 
   const c = useStyles();
@@ -197,6 +199,7 @@ const UsersTable = (props: IProps) => {
             companiesCheckbox={companiesCheckbox}
             // selected={selected}
             itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+            editIdCompany={editIdCompany}
           />
 
           <UsersActionBtn

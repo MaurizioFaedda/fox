@@ -78,6 +78,9 @@ const Home = (props: IProps) => {
           <CompaniesList
             show={showTable}
             firstCompaniesList={firstCompaniesList}
+            onChangeCompanies={(listCompanies: any) => {
+              setFirstCompaniesList(listCompanies);
+            }}
           />
 
           {/* button users list */}

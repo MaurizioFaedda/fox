@@ -5,10 +5,11 @@ import { ICompanies } from "./type";
 type IProps = {
   show: Boolean;
   firstCompaniesList?: any;
+  onChangeCompanies: Function;
 };
 
 const CompaniesList = (props: IProps) => {
-  const { show, firstCompaniesList } = props;
+  const { show, firstCompaniesList, onChangeCompanies } = props;
 
   const [companiesList, setCompaniesList] = useState<ICompanies[]>([]);
   const [selected, setSelected] = useState<any>();
@@ -25,6 +26,7 @@ const CompaniesList = (props: IProps) => {
       Revenue: item.Revenue,
     };
     setCompaniesList([newItem, ...companiesList]);
+    onChangeCompanies([newItem, ...companiesList]);
   };
 
   // edit an existing company
@@ -35,13 +37,18 @@ const CompaniesList = (props: IProps) => {
       ActivatedBy: item.ActivatedBy,
       Revenue: item.Revenue,
     };
-    companiesList[selected - 1] = newItem;
+    let _companiesList: any = companiesList;
+
+    _companiesList[selected - 1] = newItem;
+    setCompaniesList(_companiesList);
     setSelected(0);
+    onChangeCompanies(_companiesList);
   };
 
   // delete a company by id
   const deleteSelected = () => {
-    const newArr = companiesList.filter((item: any) => {
+    let _companiesList: any = companiesList;
+    const newArr = _companiesList.filter((item: any) => {
       return item.Id !== itemSelected[0].Id;
     });
     setCompaniesList(newArr);
@@ -50,7 +57,7 @@ const CompaniesList = (props: IProps) => {
         return item.Id !== itemSelected[0].Id;
       })
     );
-
+    onChangeCompanies(newArr);
     setSelected(0);
   };
 

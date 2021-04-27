@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   createStyles,
   FormControlLabel,
@@ -9,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
 import FormInput from "../FormInput";
+import SaveIcon from "@material-ui/icons/Save";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +40,7 @@ type IProps = {
   itemSelected?: any;
   userList: any;
   companiesCheckbox?: any;
+  editIdCompany: Function;
 };
 
 const JoinForm = (props: IProps) => {
@@ -47,15 +50,22 @@ const JoinForm = (props: IProps) => {
     itemSelected,
     userList,
     companiesCheckbox,
+    editIdCompany,
   } = props;
 
-  const [newIdCompany, setNewIdCompany] = useState<number>();
+  const [newIdCompany, setNewIdCompany] = useState<any>([
+    itemSelected?.idCompany,
+  ]);
 
   const c = useStyles();
 
-  //   useEffect(() => {
-  //     console.log(itemSelected?.idCompany, "prova");
-  //   }, [itemSelected]);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let _newIdCompany: any = newIdCompany.push(event.target.value);
+    setNewIdCompany([...newIdCompany, _newIdCompany]);
+    console.log(event.target.value, newIdCompany);
+
+    // setTheArray([...theArray, newElement]);
+  };
 
   return (
     <div>
@@ -74,10 +84,13 @@ const JoinForm = (props: IProps) => {
                   key={index}
                   control={
                     <Checkbox
-                      color="primary"
-                      checked={
+                      key={e.Id}
+                      value={e.Id}
+                      defaultChecked={
                         itemSelected.idCompany.includes(e.Id) ? true : false
                       }
+                      color="primary"
+                      onChange={handleChange}
                       name="checkedA"
                     />
                   }
@@ -85,6 +98,11 @@ const JoinForm = (props: IProps) => {
                 />
               );
             })}
+            <CustomButton
+              title={"Save changes"}
+              onClickAction={editIdCompany(newIdCompany)}
+              onClickClose={onHandleClose}
+            />
           </div>
         </Modal>
       )}
