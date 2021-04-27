@@ -63,8 +63,15 @@ const CompaniesList = (props: IProps) => {
   };
 
   const compareObjects = (object1: any, object2: any, key: any) => {
-    const obj1 = object1[key].toUpperCase();
-    const obj2 = object2[key].toUpperCase();
+    let obj1: any;
+    let obj2: any;
+    if (!isNaN(key)) {
+      obj1 = object1[key].toUpperCase();
+      obj2 = object2[key].toUpperCase();
+    } else {
+      obj1 = object1[key];
+      obj2 = object2[key];
+    }
 
     if (obj1 < obj2) {
       return -1;
@@ -75,21 +82,21 @@ const CompaniesList = (props: IProps) => {
     return 0;
   };
 
-  const getSortByName = (check: boolean) => {
+  const getSortBy = (check: boolean, key: any) => {
     if (filteredList.length > 0) {
       setFilteredList(
         filteredList.sort((company1: any, company2: any) =>
           check
-            ? compareObjects(company1, company2, "Name")
-            : compareObjects(company2, company1, "Name")
+            ? compareObjects(company1, company2, key)
+            : compareObjects(company2, company1, key)
         )
       );
     } else {
       setCompaniesList(
         companiesList.sort((company1: any, company2: any) =>
           check
-            ? compareObjects(company1, company2, "Name")
-            : compareObjects(company2, company1, "Name")
+            ? compareObjects(company1, company2, "Revenue")
+            : compareObjects(company2, company1, "Revenue")
         )
       );
     }
@@ -151,7 +158,7 @@ const CompaniesList = (props: IProps) => {
           onEditCompany={editCompany}
           onChangeFilter={onChangeFilter}
           filterInput={filterInput}
-          getSortByName={getSortByName}
+          onGetSortBy={getSortBy}
         />
       )}
     </>

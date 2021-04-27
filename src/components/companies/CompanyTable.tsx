@@ -67,7 +67,7 @@ type IProps = {
   selected?: number;
   onChangeFilter: Function;
   filterInput: string;
-  getSortByName: Function;
+  onGetSortBy: Function;
   onDeleteSelected(selected?: number): void;
   onHandleFocusOnClick(id: number): void;
   onAddCompanies(item: any): void;
@@ -85,7 +85,7 @@ const CompanyTable = (props: IProps) => {
     onAddCompanies,
     onEditCompany,
     filterInput,
-    getSortByName,
+    onGetSortBy,
   } = props;
 
   const c = useStyles();
@@ -93,6 +93,7 @@ const CompanyTable = (props: IProps) => {
   // useState Open/Close Form
   const [openAddForm, setOpenAddForm] = useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+
   const [filterName, setFilterName] = useState<boolean>(false);
   const [filterDate, setFilterDate] = useState<boolean>(false);
   const [filterRevenue, setFilterRevenue] = useState<boolean>(false);
@@ -127,7 +128,6 @@ const CompanyTable = (props: IProps) => {
           <div>
             {arr.length} Result{arr.length > 1 ? "s" : ""}
           </div>
-          <button onClick={() => getSortByName()}>Order</button>
         </div>
 
         {/* action btn Section - add - edit - delete */}
@@ -190,7 +190,7 @@ const CompanyTable = (props: IProps) => {
                   size="small"
                   onClick={() => {
                     setFilterName(filterName ? false : true);
-                    getSortByName(filterName);
+                    onGetSortBy(filterName, "Name");
                   }}
                 >
                   {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
@@ -203,7 +203,10 @@ const CompanyTable = (props: IProps) => {
                   aria-label="delete"
                   className={c.myIconBtn}
                   size="small"
-                  onClick={() => setFilterDate(filterDate ? false : true)}
+                  onClick={() => {
+                    setFilterDate(filterDate ? false : true);
+                    onGetSortBy(filterDate, "Date");
+                  }}
                 >
                   {filterDate && <ArrowDownwardIcon fontSize="inherit" />}
                   {!filterDate && <ArrowUpwardIcon fontSize="inherit" />}
@@ -215,7 +218,10 @@ const CompanyTable = (props: IProps) => {
                   aria-label="delete"
                   className={c.myIconBtn}
                   size="small"
-                  onClick={() => setFilterRevenue(filterRevenue ? false : true)}
+                  onClick={() => {
+                    setFilterRevenue(filterRevenue ? false : true);
+                    onGetSortBy(filterRevenue, "Revenue");
+                  }}
                 >
                   {filterRevenue && <ArrowDownwardIcon fontSize="inherit" />}
                   {!filterRevenue && <ArrowUpwardIcon fontSize="inherit" />}
