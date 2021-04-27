@@ -73,6 +73,47 @@ const UsersList = (props: IProps) => {
     setFilterInput(e.target.value);
   };
 
+  // SORTING FUNCTIONS
+  const compareObjects = (object1: any, object2: any, key: any) => {
+    let obj1: any;
+    let obj2: any;
+    if (!isNaN(key)) {
+      obj1 = object1[key].toUpperCase();
+      obj2 = object2[key].toUpperCase();
+    } else {
+      obj1 = object1[key];
+      obj2 = object2[key];
+    }
+
+    if (obj1 < obj2) {
+      return -1;
+    }
+    if (obj1 > obj2) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const getSortBy = (check: boolean, key: any) => {
+    if (filteredList.length > 0) {
+      setFilteredList(
+        filteredList.sort((user1: any, user2: any) =>
+          check
+            ? compareObjects(user1, user2, key)
+            : compareObjects(user2, user1, key)
+        )
+      );
+    } else {
+      setUsersList(
+        usersList.sort((user1: any, user2: any) =>
+          check
+            ? compareObjects(user1, user2, key)
+            : compareObjects(user2, user1, key)
+        )
+      );
+    }
+  };
+
   // API call Users
   useEffect(() => {
     fetch(`https://my-json-server.typicode.com/PietroMarrazzo/json-users/db`)
@@ -126,6 +167,7 @@ const UsersList = (props: IProps) => {
           itemSelected={itemSelected}
           onEditUser={editUser}
           onChangeFilter={onChangeFilter}
+          onGetSortBy={getSortBy}
         />
       )}
     </div>

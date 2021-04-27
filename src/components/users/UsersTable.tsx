@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   withStyles,
   Theme,
@@ -16,6 +16,9 @@ import UsersActionBtn from "./UsersActionButtons";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import SearchFilter from "./SearchFilter";
+import { Card, CardContent, IconButton } from "@material-ui/core";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -37,15 +40,27 @@ const useStyles = makeStyles({
   },
   boxBtn: {
     width: "100%",
+    height: 50,
     position: "relative",
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
+  },
+  boxSearch: {
+    display: "flex",
   },
   selected: {
     backgroundColor: "rgba(40,0,0,0.3)",
   },
   notSelected: {
     backgroundColor: "unset",
+  },
+  myIconBtn: {
+    margin: "6px",
+    color: "#fff",
+  },
+  ml20: {
+    marginLeft: 20,
   },
 });
 
@@ -58,6 +73,7 @@ type IProps = {
   handleFocusOnClick(id: number): void;
   onAddUser(item: any): void;
   onEditUser(any: any): void;
+  onGetSortBy: Function;
 };
 
 const UsersTable = (props: IProps) => {
@@ -70,6 +86,7 @@ const UsersTable = (props: IProps) => {
     itemSelected,
     onEditUser,
     onChangeFilter,
+    onGetSortBy,
   } = props;
 
   const c = useStyles();
@@ -77,8 +94,14 @@ const UsersTable = (props: IProps) => {
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
-  const [filteredList, setFilteredList] = React.useState<any>([]);
-  const [filterInput, setFilterInput] = React.useState<string>("");
+  // const [filteredList, setFilteredList] = React.useState<any>([]);
+  // const [filterInput, setFilterInput] = React.useState<string>("");
+  const [filterName, setFilterName] = useState<boolean>(false);
+  const [filterUsername, setFilterUsername] = useState<boolean>(false);
+  const [filterAge, setFilterAge] = useState<boolean>(false);
+  const [filterBirthday, setFilterBirthday] = useState<boolean>(false);
+  const [filterId, setFilterId] = useState<boolean>(false);
+  const [filterIdCompany, setFilterIdCompany] = useState<boolean>(false);
 
   const handleClose = () => {
     setOpenAddForm(false);
@@ -88,63 +111,151 @@ const UsersTable = (props: IProps) => {
   return (
     <>
       <div className={c.boxBtn}>
-        <div className={c.boxBtn}>
+        <div className={c.boxSearch}>
           <SearchFilter onChangeFilter={onChangeFilter} />
+          <Card className={c.ml20}>
+            <CardContent>{list.length} users</CardContent>
+          </Card>
         </div>
+        <div className={c.boxSearch}>
+          <UsersActionBtn
+            typeIcon="Add"
+            disabled={false}
+            selected={selected}
+            color="primary"
+            onClickEvent={() => {
+              // setOpen
+              setOpenAddForm(true);
+            }}
+          />
+          <AddForm
+            open={openAddForm}
+            handleClose={handleClose}
+            addUser={onAddUser}
+          />
 
-        <UsersActionBtn
-          typeIcon="Add"
-          disabled={false}
-          selected={selected}
-          color="primary"
-          onClickEvent={() => {
-            // setOpen
-            setOpenAddForm(true);
-          }}
-        />
-        <AddForm
-          open={openAddForm}
-          handleClose={handleClose}
-          addUser={onAddUser}
-        />
+          <UsersActionBtn
+            typeIcon="Edit"
+            selected={selected}
+            color="default"
+            onClickEvent={() => {
+              setOpenEditForm(true);
+            }}
+          />
 
-        <UsersActionBtn
-          typeIcon="Edit"
-          selected={selected}
-          color="default"
-          onClickEvent={() => {
-            setOpenEditForm(true);
-          }}
-        />
+          <EditForm
+            openForm={openEditForm}
+            onHandleClose={handleClose}
+            list={list}
+            selected={selected}
+            itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
+            onEditUser={onEditUser}
+          />
 
-        <EditForm
-          openForm={openEditForm}
-          onHandleClose={handleClose}
-          list={list}
-          selected={selected}
-          itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
-          onEditUser={onEditUser}
-        />
-
-        <UsersActionBtn
-          typeIcon="Delete"
-          selected={selected}
-          color="secondary"
-          onClickEvent={() => {
-            deleteSelectedUsers(selected);
-          }}
-        />
+          <UsersActionBtn
+            typeIcon="Delete"
+            selected={selected}
+            color="secondary"
+            onClickEvent={() => {
+              deleteSelectedUsers(selected);
+            }}
+          />
+        </div>
       </div>
       <TableContainer component={Paper}>
         <Table className={c.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Username</StyledTableCell>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell>Age</StyledTableCell>
-              <StyledTableCell>Birthday</StyledTableCell>
-              <StyledTableCell>Id Company</StyledTableCell>
+              <StyledTableCell>
+                Name
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterName(filterName ? false : true);
+                    onGetSortBy(filterName, "name");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                Username
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterUsername(filterUsername ? false : true);
+                    onGetSortBy(filterUsername, "username");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                Id
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterId(filterId ? false : true);
+                    onGetSortBy(filterId, "id");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                Age
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterAge(filterAge ? false : true);
+                    onGetSortBy(filterAge, "age");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                Birthday
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterBirthday(filterBirthday ? false : true);
+                    onGetSortBy(filterBirthday, "birthday");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
+              <StyledTableCell>
+                Id Company
+                <IconButton
+                  aria-label="delete"
+                  className={c.myIconBtn}
+                  size="small"
+                  onClick={() => {
+                    setFilterIdCompany(filterIdCompany ? false : true);
+                    onGetSortBy(filterIdCompany, "idCompany");
+                  }}
+                >
+                  {!filterName && <ArrowDownwardIcon fontSize="inherit" />}
+                  {filterName && <ArrowUpwardIcon fontSize="inherit" />}
+                </IconButton>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
