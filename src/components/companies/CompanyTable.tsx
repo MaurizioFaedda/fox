@@ -19,6 +19,7 @@ import SearchFilter from "./SearchFilter";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import Box from "@material-ui/core/Box";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +59,10 @@ const useStyles = makeStyles({
   myIconBtn: {
     margin: "6px",
     color: "#fff",
+  },
+  countText: {
+    marginLeft: "10px",
+    color: "rgba(0,0,0,0.3)",
   },
 });
 
@@ -119,16 +124,18 @@ const CompanyTable = (props: IProps) => {
   return (
     <>
       <div className={c.topTable}>
-        <div>
+        <Box display="flex" alignItems="flex-end">
           <SearchFilter
             placeholder="Search by Name or Revenue"
             onChangeFilter={onChangeFilter}
             filterInput={filterInput}
           />
-          <div>
-            {arr.length} Result{arr.length > 1 ? "s" : ""}
+          <div className={c.countText}>
+            <small>
+              {arr.length} Result{arr.length > 1 ? "s" : ""}
+            </small>
           </div>
-        </div>
+        </Box>
 
         {/* action btn Section - add - edit - delete */}
         <div className={c.boxBtn}>
@@ -205,7 +212,7 @@ const CompanyTable = (props: IProps) => {
                   size="small"
                   onClick={() => {
                     setFilterDate(filterDate ? false : true);
-                    onGetSortBy(filterDate, "Date");
+                    onGetSortBy(filterDate, "ActivatedBy");
                   }}
                 >
                   {filterDate && <ArrowDownwardIcon fontSize="inherit" />}

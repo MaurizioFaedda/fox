@@ -95,8 +95,8 @@ const CompaniesList = (props: IProps) => {
       setCompaniesList(
         companiesList.sort((company1: any, company2: any) =>
           check
-            ? compareObjects(company1, company2, "Revenue")
-            : compareObjects(company2, company1, "Revenue")
+            ? compareObjects(company1, company2, key)
+            : compareObjects(company2, company1, key)
         )
       );
     }
