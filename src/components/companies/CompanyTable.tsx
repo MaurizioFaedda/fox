@@ -140,10 +140,10 @@ const CompanyTable = (props: IProps) => {
         {/* action btn Section - add - edit - delete */}
         <div className={c.boxBtn}>
           <CompanyActionBtn
+            title="Add"
             selected={selected}
             disabled={false}
             color="primary"
-            typeIcon="Add"
             onClickEvent={() => {
               setOpenAddForm(true);
             }}
@@ -156,10 +156,10 @@ const CompanyTable = (props: IProps) => {
           />
 
           <CompanyActionBtn
+            title="Edit"
             selected={selected}
             disabled={true}
             color="default"
-            typeIcon="Edit"
             onClickEvent={() => {
               setOpenEditForm(true);
             }}
@@ -173,10 +173,10 @@ const CompanyTable = (props: IProps) => {
             onEditCompany={onEditCompany}
           />
           <CompanyActionBtn
+            title="Delete"
             selected={selected}
             disabled={true}
             color="secondary"
-            typeIcon="Delete"
             onClickEvent={() => {
               onDeleteSelected(selected);
             }}
