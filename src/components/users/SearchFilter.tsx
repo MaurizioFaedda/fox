@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -11,10 +11,19 @@ import DirectionsIcon from "@material-ui/icons/Directions";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      marginLeft: 30,
+    },
+    closedSearch: {
       padding: "2px 4px",
       display: "flex",
       alignItems: "center",
-      width: 400,
+      width: 50,
+    },
+    openedSearch: {
+      padding: "2px 4px",
+      display: "flex",
+      alignItems: "center",
+      width: 500,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -37,10 +46,15 @@ type IProps = {
 
 function SearchFilter(props: IProps) {
   const { onChangeFilter } = props;
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
+    <Paper
+      className={`${openSearch ? classes.openedSearch : classes.closedSearch} ${
+        classes.root
+      }`}
+    >
       <InputBase
         className={classes.input}
         onChange={onChangeFilter}
@@ -51,8 +65,8 @@ function SearchFilter(props: IProps) {
         type="submit"
         className={classes.iconButton}
         aria-label="search"
+        onClick={() => setOpenSearch(openSearch ? false : true)}
       >
-        <Divider className={classes.divider} orientation="vertical" />
         <SearchIcon />
       </IconButton>
     </Paper>
