@@ -22,23 +22,6 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import JoinForm from "./JoinForm";
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#D4F1F4",
-      main: "#189AB4",
-      dark: "#05445E",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#ff7961",
-      main: "#f44336",
-      dark: "#ba000d",
-      contrastText: "#000",
-    },
-  },
-});
-
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -124,13 +107,11 @@ const UsersTable = (props: IProps) => {
   } = props;
 
   const c = useStyles();
-  // const t = theme;
+
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
   const [openJoinForm, setOpenJoinForm] = useState<boolean>(false);
-  // const [filteredList, setFilteredList] = React.useState<any>([]);
-  // const [filterInput, setFilterInput] = React.useState<string>("");
   const [filterName, setFilterName] = useState<boolean>(false);
   const [filterUsername, setFilterUsername] = useState<boolean>(false);
   const [filterAge, setFilterAge] = useState<boolean>(false);
@@ -160,7 +141,6 @@ const UsersTable = (props: IProps) => {
             selected={selected}
             color="primary"
             onClickEvent={() => {
-              // setOpen
               setOpenAddForm(true);
             }}
             title="Add"
@@ -205,7 +185,6 @@ const UsersTable = (props: IProps) => {
               onHandleClose={handleClose}
               userList={list}
               companiesCheckbox={companiesCheckbox}
-              // selected={selected}
               itemSelected={itemSelected[0]}
               editIdCompany={editIdCompany}
             />

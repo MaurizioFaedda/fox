@@ -58,11 +58,6 @@ const Home = (props: IProps) => {
   );
   const c = useStyles();
 
-  /**
-   * Gestirà la visualizzazione dei contextButton Home e del vedere o no la Userlist e la companyList a seconda di chi ho selezionato
-   * e il ritorna indietro (visualizzo di nuove i contextButton)
-   */
-
   const handleToggle = () => {
     if (showTable) {
       setShowTable(false);

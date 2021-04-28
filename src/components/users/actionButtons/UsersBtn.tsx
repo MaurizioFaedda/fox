@@ -2,9 +2,7 @@ import React from "react";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-import { green } from "@material-ui/core/colors";
 import "fontsource-roboto";
-import { EADDRINUSE } from "node:constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
     btnUsers: {
       width: 180,
       height: 180,
-      // padding: 60,
       border: "10px solid #05445E",
       borderRadius: 25,
       color: "white",
@@ -85,11 +82,6 @@ const UsersBtn = (props: IProps) => {
       <ButtonBase
         focusRipple
         className={c.btnUsers}
-        style={
-          {
-            // width: image.width,
-          }
-        }
         onClick={() => {
           goPageUser();
           onSetHome();
