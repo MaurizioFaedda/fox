@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     display: "flex",
   },
   selected: {
-    backgroundColor: "RGBA(84, 159, 216, 0.2)",
+    backgroundColor: "rgba(84, 159, 216, 0.2)",
   },
   notSelected: {
     backgroundColor: "unset",
