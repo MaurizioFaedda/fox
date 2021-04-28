@@ -5,12 +5,26 @@ import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
 import Grid from "@material-ui/core/Grid";
-import { Container } from "@material-ui/core";
-
+import { Box, Container } from "@material-ui/core";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ICompanies } from "./companies/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    homeBtnUserHover: {
+      "& .MuiBox-root": {
+        "&:hover": {
+          backgroundColor: "red",
+        },
+      },
+    },
+    homeBtnCompanyHover: {
+      "& .MuiBox-root": {
+        "&:hover": {
+          backgroundColor: "rgba(84, 159, 216, 0.2)",
+        },
+      },
+    },
     wrap: {
       height: "100%",
     },
@@ -85,30 +99,51 @@ const Home = (props: IProps) => {
       <div className={c.wrap}>
         <div className={c.homeSection}>
           {homeHidden ? (
-            <button
-              onClick={() => {
-                setHomeHidden(false);
-                setShowTable(false);
-                setShowTableUsers(false);
-              }}
+            <div
+              className={`${c.homeBtnCompanyHover} ${
+                showTable ? c.homeBtnUserHover : ""
+              }`}
+              // className={c.company}
             >
-              HOME
-            </button>
+              <Box
+                onClick={() => {
+                  setHomeHidden(false);
+                  setShowTable(false);
+                  setShowTableUsers(false);
+                }}
+                display="flex"
+                border={3}
+                borderRadius={10}
+                borderColor={showTable ? "#549fd8" : "#05445E"}
+                my={10}
+                p={1}
+                width={130}
+                color={showTable ? "#549fd8" : "#05445E"}
+                fontWeight="fontWeightBold"
+                css={{}}
+              >
+                <span>
+                  <ArrowBackIosIcon />
+                </span>
+                <span>Return Home</span>
+              </Box>
+            </div>
           ) : (
-            <Grid container justify="space-around" alignItems="center">
-              <Grid container xs={12} sm={6} justify="flex-end">
-                <CompanyBtn
-                  handleToggle={handleToggle}
-                  title="Companies"
-                  onSetHome={() => setHomeHidden(true)}
-                />
-              </Grid>
-              <Grid container xs={12} sm={6} justify="center">
-                <UsersBtn
-                  title="Users"
-                  onSetHome={() => setHomeHidden(true)}
-                  goPageUser={handleToggleUsers}
-                />
+            <Grid container justify="center">
+              <Grid container xs={12} sm={6}>
+                <Box display="flex">
+                  <CompanyBtn
+                    handleToggle={handleToggle}
+                    title="Companies"
+                    onSetHome={() => setHomeHidden(true)}
+                  />
+
+                  <UsersBtn
+                    title="Users"
+                    onSetHome={() => setHomeHidden(true)}
+                    goPageUser={handleToggleUsers}
+                  />
+                </Box>
               </Grid>
             </Grid>
           )}
