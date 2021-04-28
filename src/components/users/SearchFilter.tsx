@@ -11,7 +11,7 @@ import DirectionsIcon from "@material-ui/icons/Directions";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginLeft: 30,
+      // marginLeft: 30,
     },
     closedSearch: {
       padding: "2px 4px",

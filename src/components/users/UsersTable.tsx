@@ -54,6 +54,11 @@ const StyledTableCell = withStyles((theme: Theme) =>
 const StyledTableRow = withStyles((theme: Theme) => createStyles({}))(TableRow);
 
 const useStyles = makeStyles({
+  root: {
+    "& .makeStyles-root-26": {
+      marginLeft: 0,
+    },
+  },
   table: {
     minWidth: 700,
   },
@@ -78,11 +83,14 @@ const useStyles = makeStyles({
     margin: "6px",
     color: "#fff",
   },
+  bgColor: {
+    backgroundColor: "#757ce8",
+  },
   ml20: {
     marginLeft: 20,
   },
-  bgColor: {
-    backgroundColor: "#757ce8",
+  ml0: {
+    marginLeft: 0,
   },
 });
 

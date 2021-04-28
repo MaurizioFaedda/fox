@@ -172,8 +172,12 @@ const UsersList = (props: IProps) => {
   }, [filterInput]);
 
   // useEffect(() => {
-  //   setFilteredList(usersList);
-  // }, []);
+  //   let _usersList = usersList;
+  //   usersList.idCompany.filter(() => {
+
+  //   })
+  //   setUsersList(_usersList);
+  // }, [companiesCheckbox]);
 
   return (
     <div>
