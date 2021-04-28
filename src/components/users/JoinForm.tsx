@@ -64,18 +64,14 @@ const JoinForm = (props: IProps) => {
     let _newIdCompany: any = parseInt(event.target.value);
 
     if (!idCompanies.includes(_newIdCompany)) {
-      setIdCompanies([_newIdCompany, ...idCompanies]);
+      setIdCompanies([...idCompanies, _newIdCompany]);
     } else {
-      console.log("sono dentro il filtro");
-      setIdCompanies(
-        idCompanies.filter(
-          (index: number) => idCompanies.indexOf(_newIdCompany) === index
-        )
-      );
+      let _idCompanies = idCompanies;
+      _idCompanies.splice(idCompanies.indexOf(_newIdCompany), 1);
+      setIdCompanies(_idCompanies);
     }
     console.log("newid", _newIdCompany);
-    console.log("update new array", idCompanies);
-    // setTheArray([...theArray, newElement]);
+    console.log("update new array dopo lo splice", idCompanies);
   };
 
   useEffect(() => {
