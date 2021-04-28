@@ -191,16 +191,17 @@ const UsersTable = (props: IProps) => {
             }}
             title="Delete"
           />
-
-          <JoinForm
-            openForm={openJoinForm}
-            onHandleClose={handleClose}
-            userList={list}
-            companiesCheckbox={companiesCheckbox}
-            // selected={selected}
-            itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
-            editIdCompany={editIdCompany}
-          />
+          {itemSelected.length > 0 && (
+            <JoinForm
+              openForm={openJoinForm}
+              onHandleClose={handleClose}
+              userList={list}
+              companiesCheckbox={companiesCheckbox}
+              // selected={selected}
+              itemSelected={itemSelected[0]}
+              editIdCompany={editIdCompany}
+            />
+          )}
 
           <UsersActionBtn
             typeIcon="Join Company"
@@ -326,7 +327,11 @@ const UsersTable = (props: IProps) => {
                 <StyledTableCell align="left">{item.id}</StyledTableCell>
                 <StyledTableCell align="left">{item.age}</StyledTableCell>
                 <StyledTableCell align="left">{item.birthday}</StyledTableCell>
-                <StyledTableCell align="left">{item.idCompany}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {item.idCompany.map((id: number, i: number) =>
+                    item.idCompany.length === i + 1 ? id + "" : id + " , "
+                  )}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

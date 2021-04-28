@@ -77,13 +77,20 @@ const UsersList = (props: IProps) => {
   };
 
   //join id company function
-  const editIdCompany = (arr: number[]) => {
-    // let _idCompany: any = arr;
-    // setIdCompanyList([...itemSelected.idCompany, arr]);
-    // setUsersList(
-    //   [...usersList[itemSelected].idCompany, idCompanyList]
-    // )
-    console.log("prova");
+  const editIdCompany = (Ids: any, item: any) => {
+    const newItem: any = {
+      id: item.id,
+      name: item.name,
+      username: item.username,
+      age: item.age,
+      birthday: item.birthday,
+      idCompany: Ids,
+    };
+    let _usersList: any = usersList;
+
+    _usersList[selected - 1] = newItem;
+    setUsersList(_usersList);
+    setSelected(0);
   };
 
   // SORTING FUNCTIONS

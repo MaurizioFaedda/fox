@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
 import FormInput from "../FormInput";
 import SaveIcon from "@material-ui/icons/Save";
+import { IUsers } from "../../containers/users/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 4,
       backgroundColor: "#fff",
       overflowY: "scroll",
-      height: 500,
+      height: "60%",
       "& > *": {
         margin: theme.spacing(1),
         width: "25ch",
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 type IProps = {
   openForm: boolean;
   onHandleClose: Function;
-  itemSelected?: any;
+  itemSelected: any;
   userList: any;
   companiesCheckbox?: any;
   editIdCompany: Function;
@@ -53,19 +54,34 @@ const JoinForm = (props: IProps) => {
     editIdCompany,
   } = props;
 
-  const [newIdCompany, setNewIdCompany] = useState<any>([
-    itemSelected?.idCompany,
-  ]);
+  const [idCompanies, setIdCompanies] = useState<any[]>([]);
 
   const c = useStyles();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let _newIdCompany: any = newIdCompany.push(event.target.value);
-    setNewIdCompany([...newIdCompany, _newIdCompany]);
-    console.log(event.target.value, newIdCompany);
+    console.log("oldid", idCompanies);
 
+    let _newIdCompany: any = parseInt(event.target.value);
+
+    if (!idCompanies.includes(_newIdCompany)) {
+      setIdCompanies([_newIdCompany, ...idCompanies]);
+    } else {
+      console.log("sono dentro il filtro");
+      setIdCompanies(
+        idCompanies.filter(
+          (index: number) => idCompanies.indexOf(_newIdCompany) === index
+        )
+      );
+    }
+    console.log("newid", _newIdCompany);
+    console.log("update new array", idCompanies);
     // setTheArray([...theArray, newElement]);
   };
+
+  useEffect(() => {
+    setIdCompanies(itemSelected.idCompany);
+    console.log("lista inizio", idCompanies);
+  }, [itemSelected]);
 
   return (
     <div>
@@ -77,6 +93,7 @@ const JoinForm = (props: IProps) => {
           aria-describedby="simple-modal-description"
         >
           <div className={c.root}>
+            <h5>{itemSelected.name}</h5>
             <h3>Select companies to join theyr ID</h3>
             {companiesCheckbox.map((e: any, index: number) => {
               return (
@@ -84,13 +101,13 @@ const JoinForm = (props: IProps) => {
                   key={index}
                   control={
                     <Checkbox
+                      onChange={handleChange}
                       key={e.Id}
                       value={e.Id}
                       defaultChecked={
                         itemSelected.idCompany.includes(e.Id) ? true : false
                       }
                       color="primary"
-                      onChange={handleChange}
                       name="checkedA"
                     />
                   }
@@ -100,7 +117,10 @@ const JoinForm = (props: IProps) => {
             })}
             <CustomButton
               title={"Save changes"}
-              onClickAction={editIdCompany(newIdCompany)}
+              onClickAction={() => {
+                editIdCompany(idCompanies, itemSelected);
+                setIdCompanies([]);
+              }}
               onClickClose={onHandleClose}
             />
           </div>
