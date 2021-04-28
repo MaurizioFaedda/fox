@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     btnContainer: {
       display: "flex",
-      width: "50%",
+      width: "80%",
     },
     image: {
       position: "relative",
