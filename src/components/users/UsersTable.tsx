@@ -25,9 +25,9 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "#757ce8",
-      main: "#3f50b5",
-      dark: "#002884",
+      light: "#D4F1F4",
+      main: "#189AB4",
+      dark: "#05445E",
       contrastText: "#fff",
     },
     secondary: {
@@ -42,7 +42,7 @@ const theme = createMuiTheme({
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: "#05445E",
       color: theme.palette.common.white,
     },
     body: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles({
     display: "flex",
   },
   selected: {
-    backgroundColor: "rgba(40,0,0,0.3)",
+    backgroundColor: "#D4F1F4",
   },
   notSelected: {
     backgroundColor: "unset",
@@ -116,7 +116,7 @@ const UsersTable = (props: IProps) => {
   } = props;
 
   const c = useStyles();
-  const t = theme;
+  // const t = theme;
   // Stato locale da gestire qua tipo open popup / close popup
   const [openAddForm, setOpenAddForm] = React.useState<boolean>(false);
   const [openEditForm, setOpenEditForm] = React.useState<boolean>(false);
