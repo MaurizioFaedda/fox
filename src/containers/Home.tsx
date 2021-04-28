@@ -92,8 +92,6 @@ const Home = (props: IProps) => {
     )
       .then((response) => response.json())
       .then((json) => setFirstCompaniesList(json["companies"]));
-    console.log("prova log", firstCompaniesList);
-    // };
   }, []);
 
   return (
@@ -132,14 +130,13 @@ const Home = (props: IProps) => {
             </div>
           ) : (
             <Grid container justify="center">
-              <Grid container xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 <Box display="flex">
                   <CompanyBtn
                     handleToggle={handleToggle}
                     title="Companies"
                     onSetHome={() => setHomeHidden(true)}
                   />
-
                   <UsersBtn
                     title="Users"
                     onSetHome={() => setHomeHidden(true)}

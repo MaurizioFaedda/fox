@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   withStyles,
   Theme,
@@ -21,7 +21,6 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import { Container } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
