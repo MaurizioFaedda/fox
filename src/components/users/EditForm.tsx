@@ -3,7 +3,6 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import FormInput from "../FormInput";
 import CustomButton from "../CustomButton";
-import { CheckRounded } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

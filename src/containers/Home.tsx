@@ -58,11 +58,6 @@ const Home = (props: IProps) => {
   );
   const c = useStyles();
 
-  /**
-   * Gestirà la visualizzazione dei contextButton Home e del vedere o no la Userlist e la companyList a seconda di chi ho selezionato
-   * e il ritorna indietro (visualizzo di nuove i contextButton)
-   */
-
   const handleToggle = () => {
     if (showTable) {
       setShowTable(false);
@@ -132,7 +127,7 @@ const Home = (props: IProps) => {
             </div>
           ) : (
             <Grid container justify="center">
-              <Grid container xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 <Box display="flex">
                   <CompanyBtn
                     handleToggle={handleToggle}

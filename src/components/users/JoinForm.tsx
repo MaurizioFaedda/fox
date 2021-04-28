@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   createStyles,
   FormControlLabel,
@@ -9,9 +8,6 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
-import FormInput from "../FormInput";
-import SaveIcon from "@material-ui/icons/Save";
-import { IUsers } from "../../containers/users/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +45,6 @@ const JoinForm = (props: IProps) => {
     openForm,
     onHandleClose,
     itemSelected,
-    userList,
     companiesCheckbox,
     editIdCompany,
   } = props;

@@ -1,10 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
-import { ICompanies } from "../companies/type";
 import { IUsers } from "./type";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 type IProps = {
   show: Boolean;

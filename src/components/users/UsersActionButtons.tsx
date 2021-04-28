@@ -24,7 +24,6 @@ type IProps = {
 
 const UsersActionBtn = (props: IProps) => {
   const {
-    typeIcon,
     disabled = true,
     onClickEvent,
     selected,
