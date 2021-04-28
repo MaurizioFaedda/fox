@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
     homeBtnUserHover: {
       "& .MuiBox-root": {
         "&:hover": {
-          backgroundColor: "red",
+          backgroundColor: "#189AB4",
+          cursor: "pointer",
         },
       },
     },
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiBox-root": {
         "&:hover": {
           backgroundColor: "rgba(84, 159, 216, 0.2)",
+          cursor: "pointer",
         },
       },
     },
@@ -100,8 +102,8 @@ const Home = (props: IProps) => {
         <div className={c.homeSection}>
           {homeHidden ? (
             <div
-              className={`${c.homeBtnCompanyHover} ${
-                showTable ? c.homeBtnUserHover : ""
+              className={`${c.homeBtnUserHover} ${
+                showTable ? c.homeBtnCompanyHover : ""
               }`}
               // className={c.company}
             >
