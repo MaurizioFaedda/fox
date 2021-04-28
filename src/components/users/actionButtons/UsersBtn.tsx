@@ -12,14 +12,21 @@ const useStyles = makeStyles((theme: Theme) =>
 type IProps = {
   title: string;
   goPageUser: any;
+  onSetHome: Function;
 };
 
 const UsersBtn = (props: IProps) => {
-  const { title, goPageUser } = props;
+  const { title, goPageUser, onSetHome } = props;
   const c = useStyles();
 
   return (
-    <button className={c.btnUsers} onClick={goPageUser}>
+    <button
+      className={c.btnUsers}
+      onClick={() => {
+        goPageUser();
+        onSetHome();
+      }}
+    >
       {title}
     </button>
   );
