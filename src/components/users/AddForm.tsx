@@ -48,7 +48,7 @@ const AddForm = (props: IProps) => {
   const [newAge, setNewAge] = useState<any>();
   const [newBirthday, setNewBirthday] = useState<any>(formatDate(new Date()));
   // const [newId, setNewId] = useState<any>();
-  const [newIdCompany, setNewIdCompany] = useState<any>();
+  const [newIdCompany, setNewIdCompany] = useState<number[]>([]);
 
   const c = useStyles();
 
@@ -69,9 +69,9 @@ const AddForm = (props: IProps) => {
       // case "Id":
       //   setNewId(e.target.value);
       //   break;
-      case "Id Company":
-        setNewIdCompany(e.target.value);
-        break;
+      // case "Id Company":
+      //   setNewIdCompany(e.target.value);
+      //   break;
       default:
         break;
     }
@@ -92,7 +92,7 @@ const AddForm = (props: IProps) => {
     setNewAge(0);
     setNewBirthday(formatDate(new Date()));
     // setNewId(0);
-    setNewIdCompany(0);
+    setNewIdCompany([]);
   };
 
   return (
@@ -134,12 +134,12 @@ const AddForm = (props: IProps) => {
             label={"Id"}
             handleChange={handleChange}
           /> */}
-          <FormInput
+          {/* <FormInput
             type={"number"}
             name={"Id Company"}
             label={"Id Company"}
             handleChange={handleChange}
-          />
+          /> */}
           <button
             onClick={() => {
               addNewUser();
