@@ -2,6 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
 import { ICompanies } from "../companies/type";
 import { IUsers } from "./type";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 type IProps = {
   show: Boolean;
@@ -15,11 +18,8 @@ const UsersList = (props: IProps) => {
   const [itemSelected, setItemSelected] = useState<IUsers[]>([]);
   const [filteredList, setFilteredList] = useState<any>([]);
   const [filterInput, setFilterInput] = useState<any>("");
-  const [idCompanyList, setIdCompanyList] = useState<number[]>([]);
 
   /** Gestione stato e funzioni che permettono di fare queste operazioni */
-
-  // Assegna Company
 
   // focus on click
   const handleFocusOnClick = (index: number) => {
