@@ -13,8 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrap: {
       height: "100%",
+    },
+    homeSection: {
       "& .MuiGrid-container": {
         alignItems: "center",
+        justify: "center",
+        height: "100vh",
       },
     },
     header: {
@@ -79,34 +83,36 @@ const Home = (props: IProps) => {
   return (
     <Container maxWidth="lg">
       <div className={c.wrap}>
-        {homeHidden ? (
-          <button
-            onClick={() => {
-              setHomeHidden(false);
-              setShowTable(false);
-              setShowTableUsers(false);
-            }}
-          >
-            HOME
-          </button>
-        ) : (
-          <Grid container justify="space-around">
-            <Grid container xs={12} sm={6} justify="center">
-              <CompanyBtn
-                handleToggle={handleToggle}
-                title="Companies"
-                onSetHome={() => setHomeHidden(true)}
-              />
+        <div className={c.homeSection}>
+          {homeHidden ? (
+            <button
+              onClick={() => {
+                setHomeHidden(false);
+                setShowTable(false);
+                setShowTableUsers(false);
+              }}
+            >
+              HOME
+            </button>
+          ) : (
+            <Grid container justify="space-around" alignItems="center">
+              <Grid container xs={12} sm={6} justify="flex-end">
+                <CompanyBtn
+                  handleToggle={handleToggle}
+                  title="Companies"
+                  onSetHome={() => setHomeHidden(true)}
+                />
+              </Grid>
+              <Grid container xs={12} sm={6} justify="center">
+                <UsersBtn
+                  title="Users"
+                  onSetHome={() => setHomeHidden(true)}
+                  goPageUser={handleToggleUsers}
+                />
+              </Grid>
             </Grid>
-            <Grid container xs={12} sm={6} justify="center">
-              <UsersBtn
-                title="Users"
-                onSetHome={() => setHomeHidden(true)}
-                goPageUser={handleToggleUsers}
-              />
-            </Grid>
-          </Grid>
-        )}
+          )}
+        </div>
 
         {firstCompaniesList.length > 0 && (
           <>
