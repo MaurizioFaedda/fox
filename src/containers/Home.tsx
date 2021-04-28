@@ -4,10 +4,19 @@ import CompaniesList from "./companies/CompaniesList";
 import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
+import Grid from "@material-ui/core/Grid";
+
 import { ICompanies } from "./companies/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    wrap: {
+      height: "100vh",
+      "& .MuiGrid-container": {
+        height: "100vh",
+        alignItems: "center",
+      },
+    },
     header: {
       display: "flex",
       flexWrap: "wrap",
@@ -23,6 +32,7 @@ type IProps = {};
 const Home = (props: IProps) => {
   const [showTable, setShowTable] = useState<Boolean>(false);
   const [showTableUsers, setShowTableUsers] = useState<Boolean>(false);
+  const [homeHidden, setHomeHidden] = useState<Boolean>(false);
   const [firstCompaniesList, setFirstCompaniesList] = useState<ICompanies[]>(
     []
   );
@@ -67,12 +77,36 @@ const Home = (props: IProps) => {
   }, []);
 
   return (
-    <div>
-      <header className={c.header}>
-        <CompanyBtn handleToggle={handleToggle} title="Companies" />
-        <UsersBtn title="Users" goPageUser={handleToggleUsers} />
-      </header>
-      {/* button companies list */}
+    <div className={c.wrap}>
+      {homeHidden ? (
+        <button
+          onClick={() => {
+            setHomeHidden(false);
+            setShowTable(false);
+            setShowTableUsers(false);
+          }}
+        >
+          HOME
+        </button>
+      ) : (
+        <Grid container justify="space-around">
+          <Grid container xs={12} sm={6} justify="center">
+            <CompanyBtn
+              handleToggle={handleToggle}
+              title="Companies"
+              onSetHome={() => setHomeHidden(true)}
+            />
+          </Grid>
+          <Grid container xs={12} sm={6} justify="center">
+            <UsersBtn
+              title="Users"
+              onSetHome={() => setHomeHidden(true)}
+              goPageUser={handleToggleUsers}
+            />
+          </Grid>
+        </Grid>
+      )}
+
       {firstCompaniesList.length > 0 && (
         <>
           <CompaniesList

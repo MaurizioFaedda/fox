@@ -7,8 +7,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     btnContainer: {
       display: "flex",
-      flexWrap: "wrap",
-      minWidth: 300,
       width: "50%",
     },
     image: {
@@ -83,9 +81,10 @@ const useStyles = makeStyles((theme: Theme) =>
 type IProps = {
   title: string;
   handleToggle: () => void;
+  onSetHome: Function;
 };
 const CompanyBtn = (props: IProps) => {
-  const { title, handleToggle } = props;
+  const { title, handleToggle, onSetHome } = props;
   const c = useStyles();
   const images = [
     {
@@ -101,7 +100,10 @@ const CompanyBtn = (props: IProps) => {
         <ButtonBase
           focusRipple
           key={title}
-          onClick={handleToggle}
+          onClick={() => {
+            handleToggle();
+            onSetHome();
+          }}
           className={c.image}
           focusVisibleClassName={c.focusVisible}
           style={{
