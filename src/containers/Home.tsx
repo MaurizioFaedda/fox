@@ -5,15 +5,15 @@ import UsersList from "./users/UsersList";
 import CompanyBtn from "../components/companies/CompanyBtn";
 import UsersBtn from "../components/users/actionButtons/UsersBtn";
 import Grid from "@material-ui/core/Grid";
+import { Container } from "@material-ui/core";
 
 import { ICompanies } from "./companies/type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrap: {
-      height: "100vh",
+      height: "100%",
       "& .MuiGrid-container": {
-        height: "100vh",
         alignItems: "center",
       },
     },
@@ -77,54 +77,56 @@ const Home = (props: IProps) => {
   }, []);
 
   return (
-    <div className={c.wrap}>
-      {homeHidden ? (
-        <button
-          onClick={() => {
-            setHomeHidden(false);
-            setShowTable(false);
-            setShowTableUsers(false);
-          }}
-        >
-          HOME
-        </button>
-      ) : (
-        <Grid container justify="space-around">
-          <Grid container xs={12} sm={6} justify="center">
-            <CompanyBtn
-              handleToggle={handleToggle}
-              title="Companies"
-              onSetHome={() => setHomeHidden(true)}
-            />
-          </Grid>
-          <Grid container xs={12} sm={6} justify="center">
-            <UsersBtn
-              title="Users"
-              onSetHome={() => setHomeHidden(true)}
-              goPageUser={handleToggleUsers}
-            />
-          </Grid>
-        </Grid>
-      )}
-
-      {firstCompaniesList.length > 0 && (
-        <>
-          <CompaniesList
-            show={showTable}
-            firstCompaniesList={firstCompaniesList}
-            onChangeCompanies={(listCompanies: any) => {
-              setFirstCompaniesList(listCompanies);
+    <Container maxWidth="lg">
+      <div className={c.wrap}>
+        {homeHidden ? (
+          <button
+            onClick={() => {
+              setHomeHidden(false);
+              setShowTable(false);
+              setShowTableUsers(false);
             }}
-          />
+          >
+            HOME
+          </button>
+        ) : (
+          <Grid container justify="space-around">
+            <Grid container xs={12} sm={6} justify="center">
+              <CompanyBtn
+                handleToggle={handleToggle}
+                title="Companies"
+                onSetHome={() => setHomeHidden(true)}
+              />
+            </Grid>
+            <Grid container xs={12} sm={6} justify="center">
+              <UsersBtn
+                title="Users"
+                onSetHome={() => setHomeHidden(true)}
+                goPageUser={handleToggleUsers}
+              />
+            </Grid>
+          </Grid>
+        )}
 
-          {/* button users list */}
-          <UsersList
-            show={showTableUsers}
-            companiesCheckbox={firstCompaniesList}
-          />
-        </>
-      )}
-    </div>
+        {firstCompaniesList.length > 0 && (
+          <>
+            <CompaniesList
+              show={showTable}
+              firstCompaniesList={firstCompaniesList}
+              onChangeCompanies={(listCompanies: any) => {
+                setFirstCompaniesList(listCompanies);
+              }}
+            />
+
+            {/* button users list */}
+            <UsersList
+              show={showTableUsers}
+              companiesCheckbox={firstCompaniesList}
+            />
+          </>
+        )}
+      </div>
+    </Container>
   );
 };
 export default Home;

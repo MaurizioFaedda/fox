@@ -20,11 +20,13 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import { Container } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: "#549fd8",
       color: theme.palette.common.white,
     },
     body: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles({
     display: "flex",
   },
   selected: {
-    backgroundColor: "rgba(40,0,0,0.3)",
+    backgroundColor: "RGBA(84, 159, 216, 0.2)",
   },
   notSelected: {
     backgroundColor: "unset",
@@ -124,67 +126,78 @@ const CompanyTable = (props: IProps) => {
   return (
     <>
       <div className={c.topTable}>
-        <Box display="flex" alignItems="flex-end">
-          <SearchFilter
-            placeholder="Search by Name or Revenue"
-            onChangeFilter={onChangeFilter}
-            filterInput={filterInput}
-          />
-          <div className={c.countText}>
-            <small>
-              {arr.length} Result{arr.length > 1 ? "s" : ""}
-            </small>
-          </div>
-        </Box>
+        <Grid container>
+          <Grid item xs={12} sm={6}>
+            <Box display="flex" alignItems="flex-end">
+              <SearchFilter
+                placeholder="Search by Name or Revenue"
+                onChangeFilter={onChangeFilter}
+                filterInput={filterInput}
+              />
+              <div className={c.countText}>
+                <small>
+                  {arr.length} Result{arr.length > 1 ? "s" : ""}
+                </small>
+              </div>
+            </Box>
+          </Grid>
 
-        {/* action btn Section - add - edit - delete */}
-        <div className={c.boxBtn}>
-          <CompanyActionBtn
-            title="Add"
-            selected={selected}
-            disabled={false}
-            color="primary"
-            onClickEvent={() => {
-              setOpenAddForm(true);
-            }}
-          />
-          <AddForm
-            open={openAddForm}
-            handleClose={handleClose}
-            arr={arr}
-            onAddCompanies={onAddCompanies}
-          />
+          {/* action btn Section - add - edit - delete */}
+          <Grid item xs={12} sm={6}>
+            <Grid container justify="flex-end">
+              <div className={c.boxBtn}>
+                <CompanyActionBtn
+                  title="Add"
+                  selected={selected}
+                  disabled={false}
+                  color="primary"
+                  onClickEvent={() => {
+                    setOpenAddForm(true);
+                  }}
+                />
+                <AddForm
+                  open={openAddForm}
+                  handleClose={handleClose}
+                  arr={arr}
+                  onAddCompanies={onAddCompanies}
+                />
 
-          <CompanyActionBtn
-            title="Edit"
-            selected={selected}
-            disabled={true}
-            color="default"
-            onClickEvent={() => {
-              setOpenEditForm(true);
-            }}
-          />
-          <EditForm
-            open={openEditForm}
-            onHandleClose={handleClose}
-            arr={arr}
-            selected={selected}
-            itemSelected={itemSelected.length > 0 ? itemSelected[0] : null}
-            onEditCompany={onEditCompany}
-          />
-          <CompanyActionBtn
-            title="Delete"
-            selected={selected}
-            disabled={true}
-            color="secondary"
-            onClickEvent={() => {
-              onDeleteSelected(selected);
-            }}
-          />
-        </div>
+                <CompanyActionBtn
+                  title="Edit"
+                  selected={selected}
+                  disabled={true}
+                  color="default"
+                  onClickEvent={() => {
+                    setOpenEditForm(true);
+                  }}
+                />
+                <EditForm
+                  open={openEditForm}
+                  onHandleClose={handleClose}
+                  arr={arr}
+                  selected={selected}
+                  itemSelected={
+                    itemSelected.length > 0 ? itemSelected[0] : null
+                  }
+                  onEditCompany={onEditCompany}
+                />
+                <CompanyActionBtn
+                  title="Delete"
+                  selected={selected}
+                  disabled={true}
+                  color="secondary"
+                  onClickEvent={() => {
+                    onDeleteSelected(selected);
+                  }}
+                />
+              </div>
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
 
       {/* Table section  */}
+
       <TableContainer component={Paper}>
         <Table className={c.table} aria-label="customized table">
           <TableHead>
